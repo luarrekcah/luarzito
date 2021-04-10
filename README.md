@@ -1,4 +1,4 @@
-# luarzito
+# Luarzito - Discord Bot
 Repositório com a lógica atual do Luarzito
 
 Entre no nosso [servidor](https://discord.gg/XKHcPa4fde) do Discord!
