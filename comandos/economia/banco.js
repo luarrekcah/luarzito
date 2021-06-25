@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, argumentos) => {
   const firebase = require("firebase");
   const database = firebase.database();
 
-  let user = message.mentions.users.first() || message.author;
+  let user = message.mentions.users.first()|| bot.users.cache.get(argumentos[0]) || message.author;
   let bref = database.ref(`Perfis/${user.id}`);
   database
     .ref(`Perfis/${user.id}`)

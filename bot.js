@@ -8,6 +8,7 @@ const bot = new Discord.Client();
 const { Util } = require("discord.js");
 const fs = require("fs");
 const firebase = require("firebase");
+const interactions = require("discord-slash-commands-client");
 
 app.get("/", (request, response) => {
   response.sendStatus(200);
@@ -22,6 +23,7 @@ app.listen(process.env.PORT);
 bot.Discord = Discord;
 bot.util = Util;
 bot.fs = fs;
+bot.color = "#00b0f0";
 
 bot.github = "https://github.com/luarrekcah/";
 bot.webpage = "https://luarzito.glith.me/";
@@ -33,6 +35,17 @@ bot.prefixo = "lz.";
 bot.emojis = {
   alerta: "<a:alerta:758339902386733098>"
 };
+
+bot.interactions = new interactions.Client(
+  process.env.TOKEN,
+  "743841329334845530"
+);
+
+bot.interactions
+  .getCommands()
+  .then(console.log)
+  .catch(console.error);
+
 
 var config = {
   firebaseConfig: {
@@ -132,22 +145,24 @@ try {
 }
 console.log(logcrr + "carregados.");
 
+console.log(logcrr.length + " comandos carregados.");
+
 function checkSystem() {
-  if ((process.cpuUsage().system / 1024 / 1024).toFixed(2) > 70.0)
-    return (
-      process.exit(1) &&
-      console.log(
-        "O sistema ultrapassou 70% de CPU e por isso teve de ser reiniciado."
-      )
-    );
-  else
-    console.log("CPU: " + (process.cpuUsage().system / 1024 / 1024).toFixed(2));
+  const cpu = Number((process.cpuUsage().system / 1024 / 1024).toFixed(2));
+  if (cpu >= 90.0) {
+    console.log("CPU com uso muito alto, reiniciando sistema...");
+    setTimeout(() => {
+      process.exit(1);
+    }, 2000);
+  } else {
+    console.log("Uso da CPU: " + cpu);
+  }
 }
 
-/*setInterval(() => {
+setInterval(() => {
   checkSystem();
 }, config.checkSystem.time);
-*/
+
 try {
   console.log("Tentando logar na api do dc");
   bot.login(process.env.TOKEN);

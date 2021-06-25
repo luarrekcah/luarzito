@@ -21,6 +21,15 @@ module.exports.run = async (bot, message, argumentos) => {
       "lembre-se de mencionar um usuário válido para fazer cafuné!"
     );
   }
+  if (usuario === message.author)
+    return message.channel
+      .send("Cafuné em sí mesmo? 😳")
+      .then(message.delete())
+      .then(m => {
+        setTimeout(() => {
+          m.delete();
+        }, 5000);
+      }); 
   const usuarioID = usuario.id;
   const usuarioV = usuarioID + 1 - 1;
   const amizadeID = autorV + usuarioV;

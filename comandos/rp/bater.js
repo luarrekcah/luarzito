@@ -22,6 +22,18 @@ module.exports.run = async (bot, message, argumentos) => {
       "lembre-se de mencionar um usuário válido para bater!"
     );
   }
+  
+    if (usuario === message.author)
+    return message.channel
+      .send("Por que quer agredir a sí mesmo? :/")
+      .then(message.delete())
+      .then(m => {
+        setTimeout(() => {
+          m.delete();
+        }, 5000);
+      }); 
+  
+  
   const usuarioID = usuario.id;
   const usuarioV = usuarioID + 1 - 1;
   const amizadeID = autorV + usuarioV;

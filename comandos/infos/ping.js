@@ -3,128 +3,195 @@ const Canvas = require("canvas");
 
 exports.run = async (bot, message, argumentos) => {
   if (!message.guild.me.permissions.has("EMBED_LINKS"))
-      return message.channel.send(
-        ":warning: Eu estou sem permissão de `EMBED_LINKS` para continuar"
-      );
+    return message.channel.send(
+      ":warning: Eu estou sem permissão de `EMBED_LINKS` para continuar"
+    );
   if (!message.guild.me.permissions.has("ATTACH_FILES"))
-      return message.channel.send(
-        ":warning: Eu estou sem permissão de `ATTACH_FILES` para continuar"
-      );
-  try {
-    const canvas = Canvas.createCanvas(900, 500); //250;
-    const ctx = canvas.getContext("2d");
-    const botID = bot.users.cache.get("743841329334845530");
-    const botAvatar = botID.avatarURL({
-      dynamic: true,
-      format: "png",
-      size: 1024
-    });
-    let totalSeconds = bot.uptime / 1000;
-    let days = Math.floor(totalSeconds / 86400);
-    let hours = Math.floor(totalSeconds / 3600);
-    totalSeconds %= 3600;
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
-
-    let uptime = `Tempo desde a última parada: \n> ${days.toFixed()} dias\n> ${hours.toFixed()} horas\n> ${minutes.toFixed()} minutos\n> ${seconds.toFixed()} segundos`;
-
-    const aguarde = await message.channel.send(
-      "<a:alerta:758339902386733098> | Espere, estou pegando minhas informações..."
+    return message.channel.send(
+      ":warning: Eu estou sem permissão de `ATTACH_FILES` para continuar"
     );
 
-    const latenciaSV = aguarde.createdTimestamp - message.createdTimestamp;
+  const canvas = Canvas.createCanvas(900, 500); //250;
+  const ctx = canvas.getContext("2d");
+  const botID = bot.users.cache.get("743841329334845530");
+  const botAvatar = botID.avatarURL({
+    dynamic: true,
+    format: "png",
+    size: 1024
+  });
+  let totalSeconds = bot.uptime / 1000;
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
 
-    const sistema = `CPU: ${(process.cpuUsage().system / 1024 / 1024).toFixed(
-      2
-    )}% \nRAM: ${(process.memoryUsage().rss / 1024 / 1024).toFixed(
-      2
-    )}MB / 2GB \nLatência da API: ${Math.round(
-      bot.ws.ping
-    )}ms\nLatência do Servidor: ${latenciaSV}ms`;
+  console.log(days.toFixed() + " - " + hours);
 
-    const fundos = [
-      "https://cdn.discordapp.com/attachments/742068003583295623/793675097469878282/Bgnzinho_Img027.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688720393633822/Bgnzinho_Img003.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688749212041216/Bgnzinho_Img006.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688757378613268/Bgnzinho_Img024.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688765490135050/Bgnzinho_Img025.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688766094377010/Bgnzinho_Img009.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688773711233074/Bgnzinho_Img013.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688781273825340/Bgnzinho_Img047.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688820733313054/Bgnzinho_Img137.jpg",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688825133662248/Bgnzinho_Img138.jpg",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688829285892116/Bgnzinho_Img141.jpg",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688832121765908/Bgnzinho_Img142.jpg",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688831609405460/Bgnzinho_Img034.png",
-      "https://cdn.discordapp.com/attachments/742068003583295623/793688836819124244/Bgnzinho_Img143.jpg"
-    ];
+  const uptime = `à ${days.toFixed() == 0 ? "" : days.toFixed() + "D "}${
+    hours.toFixed() == 0 ? "" : hours.toFixed() + "H "
+  }${minutes.toFixed() == 0 ? "" : minutes.toFixed() + "M "}${
+    seconds.toFixed() == 0 ? "" : seconds.toFixed() + "S"
+  }`;
 
-    const background_wall = await Canvas.loadImage(
-      fundos[Math.floor(Math.random() * fundos.length + 1) - 1]
+  let aguarde = await message.channel.send(
+    "<a:alerta:758339902386733098> | Aguarde, estou coletando minhas informações, pode demorar um pouco..."
+  );
+
+  const latenciaSV = aguarde.createdTimestamp - message.createdTimestamp;
+  const api = Math.round(bot.ws.ping);
+
+  const cpu = Number((process.cpuUsage().system / 1024 / 1024).toFixed(2));
+
+  const ram = Number((process.memoryUsage().rss / 1024 / 1024).toFixed(2));
+
+  if (cpu > 0.0 && cpu <= 20.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-0a20.png?v=1618859808933"
     );
-    ctx.drawImage(background_wall, 0, 0, canvas.width, canvas.height);
-
-    const background = await Canvas.loadImage(
-      "https://cdn.discordapp.com/attachments/742068003583295623/793687485988470794/luarzito_ping_comando.png"
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else if (cpu > 20.0 && cpu <= 49.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-20a40.png?v=1619096005000"
     );
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else if (cpu > 50.0 && cpu <= 69.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-50a70.png?v=1619466083554"
+    );
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else if (cpu > 70.0 && cpu <= 84.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-70a85.png?v=1619466508299"
+    );
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else if (cpu > 85.0 && cpu <= 94.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-85a95.png?v=1619467131099"
+    );
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else if (cpu > 95.0 && cpu <= 100.0) {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-95a100.png?v=1619467447473"
+    );
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+  } else {
+    const cpuConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-95a100.png?v=1619467447473"
+    );
+    ctx.drawImage(cpuConter, 0, 0, canvas.width, canvas.height);
+    const cpuConterMax = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fcpu-max.png?v=1618862070497"
+    );
+    ctx.drawImage(cpuConterMax, 0, 0, canvas.width, canvas.height);
+  }
 
-    ctx.strokeStyle = "#74037b";
-    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+  aguarde.edit("CPU Coletada");
 
-    // Slightly smaller text placed above the member's display name
-    ctx.font = "50px sans-serif";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(`Sistema geral`, canvas.width / 2.5, canvas.height / 3.5);
+  aguarde.edit("Coletando RAM");
 
-    ctx.font = "28px sans-serif";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(`${sistema}`, canvas.width / 2.5, canvas.height / 2.5);
-    /*
-  ctx.font = "28px sans-serif";
+  if (ram > 0.0 && ram <= 50.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-0a50.png?v=1618863900465"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 51.0 && ram <= 100.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-51a100.png?v=1618863904616"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 101.0 && ram <= 150.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-101a150.png?v=1618863900833"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 151.0 && ram <= 250.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-201a250.png?v=1618863904383"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 251.0 && ram <= 300.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-251a300.png?v=1618863901184"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 301.0 && ram <= 350.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-301a350.png?v=1618863901858"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 351.0 && ram <= 400.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-351a400.png?v=1618863903030"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 401.0 && ram <= 500.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-401a500.png?v=1618863902517"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else if (ram > 501.0 && ram <= 512.0) {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-501a510.png?v=1618863903542"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+  } else {
+    const ramConter = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-501a510.png?v=1618863903542"
+    );
+    ctx.drawImage(ramConter, 0, 0, canvas.width, canvas.height);
+    const max = await Canvas.loadImage(
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2Fram-max.png?v=1618863903298"
+    );
+    ctx.drawImage(max, 0, 0, canvas.width, canvas.height);
+  }
+  aguarde.edit("RAM Coletada.");
+  const background = await Canvas.loadImage(
+    "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-icone.png?v=1618859356665"
+  );
+
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+  ctx.strokeStyle = "#74037b";
+  ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = "20px Impact";
   ctx.fillStyle = "#ffffff";
   ctx.fillText(
-    ``,
-    canvas.width / 2.5,
-    canvas.height / 2.0 //1.5
+    `${uptime}`,
+    canvas.width / 7.0, //Quanto menor, mais pra direita
+    canvas.height / 1.06 //1.5 quanto menos, baixo
   );
-  */
 
-    ctx.font = "28px sans-serif";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(
-      `${uptime}`,
-      canvas.width / 2.5,
-      canvas.height / 1.5 //1.5
-    );
+  ctx.font = "20px Impact";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(
+    `${latenciaSV}ms`,
+    canvas.width / 3.0, //Quanto menor, mais pra direita
+    canvas.height / 3.25 //1.5 quanto menos, baixo
+  );
 
-    //${(process.memoryUsage().rss / 1024 / 1024).toFixed(2)}MB
+  ctx.font = "20px Impact";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(
+    `${api}ms`,
+    canvas.width / 3.25, //Quanto menor, mais pra direita
+    canvas.height / 5.25 //1.5 quanto menos, baixo
+  );
 
-    ctx.beginPath();
-    ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-    ctx.closePath();
-    ctx.clip();
+  ctx.beginPath();
+  ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.clip();
 
-    const iconPrincipal = await Canvas.loadImage(botAvatar);
-    ctx.drawImage(iconPrincipal, 25, 25, 200, 200);
+  const iconPrincipal = await Canvas.loadImage(botAvatar);
+  ctx.drawImage(iconPrincipal, 25, 25, 200, 200);
 
-    /*
-  if (bot.user.presence.status === "online") {
-    const online = await Canvas.loadImage("https://cdn.discordapp.com/attachments/757308101182357518/759938144451035197/pngwing.com_3.png")
-    ctx.drawImage(online, 120, 180, 80, 80); //dois ultimos sao tamanho
-  }
-*/
+  aguarde.edit("Painel quase pronto...");
 
-    const attachment = new Discord.MessageAttachment(
-      canvas.toBuffer(),
-      "luarzito.png"
-    );
-    const finalEmbed = new Discord.MessageEmbed()
-      .setColor("RANDOM")
-      .setImage("attachment://luarzito.png")
-      .addField("🔀Sinônimos:", "`uptime`, `ping`, `tempo ativo`");
-    message.channel.send(message.author, attachment).then(aguarde.delete());
-  } catch (e) {
-    console.log(e);
-  }
+  const attachment = new Discord.MessageAttachment(
+    canvas.toBuffer(),
+    "luarzito.png"
+  );
+  message.channel.send(message.author, attachment).then(aguarde.delete());
 };

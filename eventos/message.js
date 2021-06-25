@@ -1,34 +1,71 @@
 const Discord = require("discord.js");
-
 const firebase = require("firebase");
+const Filter = require("bad-words");
+const customFilter = new Filter({ placeHolder: "x" });
 if (!firebase.apps.length) {
   firebase.initializeApp(firebase);
 }
+
 module.exports = async (bot, message, argumentos) => {
   const channel = bot.channels.cache.get("761993669061902337");
 
   const database = firebase.database();
 
-  /*
-  const guildTag =
-    message.channel.type === "text" ? `[${message.guild.name}]` : "[DM]";
-  const channelTag =
-    message.channel.type === "text" ? `[#${message.channel.name}]` : "";
-  channel.send(
-    `${guildTag}${channelTag} ${message.author.tag}: ${message.content}`
-  );
-  */
+  //modulo de segurança
+  let security = database.ref(`Servidores/${message.guild.id}/modulos`);
+  security.once("value").then(async function(db) {
+    
+    if(db.val() === null) return;
+    
+    //ANTI-INVITE
+    if (
+      message.content.includes("discord.gg/" || "discordapp.com/invite/") &&
+      db.val().antiInvite
+    ) {
+      message
+        .delete()
+        .then(
+          message.channel.send(
+            "<@" +
+              message.author +
+              ">, é proibido enviar links de outros servidores aqui!"
+          )
+        );
+    }
+    //===================
+
+    //MENTIONS
+    if (message.mentions.length > 10 && db.val().mentions) {
+      message.channel.send("Spam.");
+    }
+    //===================
+
+    //CENSURADOR
+    if (db.val().censored) {
+      if (message.author.bot) return;
+      const novaMsg = customFilter.clean(message.content.toLowerCase());
+      if (novaMsg.includes("xxxx")) {
+        message
+          .delete()
+          .then(
+            message.channel.send(
+              `${message.author.username}#${message.author.discriminator}: ${novaMsg}`
+            )
+          );
+      }
+    }
+    //===================
+  });
+
+  //-----------------------------------
+
   let bref = database.ref(`Servidores/${message.guild.id}`);
   bref.once("value").then(async function(db) {
     try {
       if (db.val() === null) {
-        // bot.prefixo = "lz.";
         bref.set({
           prefixo: "lz."
         });
-        /* } else {
-        bot.prefixo = await db.val().prefixo;
-      }*/
       } else if (db.val().prefixo == null) {
         bref.set({ prefixo: "lz." });
       }
@@ -38,11 +75,11 @@ module.exports = async (bot, message, argumentos) => {
 
     if (
       !message.content.startsWith(db.val().prefixo) &&
-      // !message.content.startsWith(bot.prefixo.toUpperCase()) ||
-      !message.content.startsWith("Lz.") && 
-      !message.content.startsWith("lz.")
+      !message.content.startsWith("Lz.") &&
+      !message.content.startsWith("lz.") &&
+      !message.content.startsWith("<@743841329334845530>")
     ) {
-      const user = message.mentions.users.first(); //|| message.author;
+      const user = message.mentions.users.first();
       if (!user) return;
       if (message.author.bot) return;
       if (user.id === "743841329334845530") {
@@ -76,7 +113,7 @@ module.exports = async (bot, message, argumentos) => {
     arg_texto = arg_texto.slice(remover);
 
     var prefixo = db.val().prefixo;
-    
+
     switch (comando) {
       case "help":
       case "comandos":
@@ -113,7 +150,7 @@ module.exports = async (bot, message, argumentos) => {
         break;
       case "apertar":
       case "shakehand":
-      case "aperto": 
+      case "aperto":
         comando = "handshake";
         break;
       case "lyrics":
@@ -201,24 +238,26 @@ module.exports = async (bot, message, argumentos) => {
       case "guildfoto":
         comando = "servericon";
         break;
-        case "ui":
-        case "infouser":
-        case "getuser":
-        case "iu":
+      case "ui":
+      case "infouser":
+      case "getuser":
+      case "iu":
         comando = "userinfo";
         break;
-        case "si":
-        case "is":
-        case "infoserver":
-        case "getserver":
-        case "serverget":
-        case "guildinfo":
-        case "infoguild":
-        case "gi":
-        case "ig":
+      case "si":
+      case "is":
+      case "infoserver":
+      case "getserver":
+      case "serverget":
+      case "guildinfo":
+      case "infoguild":
+      case "gi":
+      case "ig":
+      case "svinfo":
+      case "infosv":
         comando = "serverinfo";
         break;
-    } 
+    }
 
     if (bot.pastas[comando] && bot.pastas[comando].includes("comandos")) {
       if (!message.guild && ![""].includes(comando)) {
@@ -249,24 +288,17 @@ module.exports = async (bot, message, argumentos) => {
             5}:${ping.getUTCMinutes()}:${ping.getUTCSeconds()}`
         );
       channel.send(embedLog);
-      /*
-      message.author.tag +
-        "  " +
-        bot.prefixo +
-        comando +
-        " " +
-        arg_texto +
-        " no canal: " +
-        message.channel.name +
-        " no servidor: " +
-        message.guild.name
-    */
-      bot[comando](bot, message, argumentos, arg_texto, chat, prefixo); //arg_texto: argumento com o prefixo
+
+      bot[comando](bot, message, argumentos, arg_texto, chat, prefixo);
     } else {
-      if(message.content.length <= 2) return;
+      if (message.content.length <= 2) return;
       message.channel
         .send(
-          "Oh, acho que você escreveu o comando errado... Dê uma olhada na ortografia"
+          "Não identifiquei `" +
+            message.content +
+            "` como um comando válido, tente `" +
+            db.val().prefixo +
+            "help` para ver a lista de comandos :)"
         )
         .then(m => {
           m.delete({ timeout: 4000 });

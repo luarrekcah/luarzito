@@ -21,6 +21,17 @@ module.exports.run = async (bot, message, argumentos) => {
       "lembre-se de mencionar um usuário válido para acordar!"
     );
   }
+  
+    if (usuario === message.author)
+    return message.channel
+      .send("Oxi! Você já está acordado 🧐")
+      .then(message.delete())
+      .then(m => {
+        setTimeout(() => {
+          m.delete();
+        }, 5000);
+      }); 
+  
   const usuarioID = usuario.id;
   const usuarioV = usuarioID + 1 - 1;
   const amizadeID = autorV + usuarioV;

@@ -14,7 +14,7 @@ exports.run = async (bot, message, argumentos, arg_texto, chat) => {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Infobox_info_icon.svg/1024px-Infobox_info_icon.svg.png"
     )
     .setImage(
-      "https://cdn.discordapp.com/attachments/747520193688764506/770610237446160404/projeto_luarzito.png"
+      "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-help.jpg?v=1618502639787"
     )
     .setDescription(
       `Um bot para moderação, RP valorizado, economia e diversão geral. Legal, né?! Se quiser ver tudo que posso fazer, entre no meu site! :)`
@@ -35,6 +35,10 @@ exports.run = async (bot, message, argumentos, arg_texto, chat) => {
       {
         name: `<a:coroa:758337559247454288> | Quer me adicionar no seu servidor?!`,
         value: `Só clicar [aqui](https://discord.com/oauth2/authorize?client_id=743841329334845530&scope=bot&permissions=8/) para me chamar!`
+      },
+      {
+        name: `⬆️ | Gostou do bot, que tal votar nele?`,
+        value: `[top.gg](https://top.gg/bot/743841329334845530/vote/)`
       }
     )
     .addField("🔀 | Sinônimos:","`help`, `comandos`, `ajuda`")

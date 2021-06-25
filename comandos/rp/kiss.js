@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const firebase = require("firebase");
+const superagent = require("superagent");
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebase);
@@ -42,15 +43,9 @@ module.exports.run = async (bot, message, argumentos) => {
   const usuarioV = usuarioID + 1 - 1;
   const amizadeID = autorV + usuarioV;
   const pontos = Math.floor(Math.random() * 10) + 1;
-
-  var list = [
-    "https://imgur.com/iclUiUN.gif",
-    "https://imgur.com/lYQt9rx.gif",
-    "https://imgur.com/w1TU5mR.gif"
-  ];
-
-  var rand = list[Math.floor(Math.random() * list.length)];
-
+  let body = await superagent.get("https://nekos.life/api/hug");
+  const anime = body.url;
+  console.log(body);
   let bref = database.ref(`Usuários/${amizadeID}`);
   database
     .ref(`Usuários/${amizadeID}`)
@@ -67,7 +62,7 @@ module.exports.run = async (bot, message, argumentos) => {
         const embed = new Discord.MessageEmbed()
           .setTitle(":sparkling_heart: Beijinhos :sparkling_heart:")
           .setColor("RANDOM")
-          .setImage(rand)
+          .setImage(anime)
           .setTimestamp()
           .setThumbnail()
           .setFooter(`Pontos de amizade: ${db.val().amizadeNivel + pontos}`);
@@ -88,11 +83,11 @@ module.exports.run = async (bot, message, argumentos) => {
         const embed = new Discord.MessageEmbed()
           .setTitle(":sparkling_heart: Beijinhos :sparkling_heart:")
           .setColor("RANDOM")
-          .setImage(rand)
+          .setImage(body.url)
           .setTimestamp()
           .setThumbnail()
           .setFooter(`Pontos de amizade: ${db.val().amizadeNivel + pontos}`);
-        await message.channel.send(
+        message.channel.send(
           `${message.author} acaba de beijar ${usuario}`,
           embed
         );

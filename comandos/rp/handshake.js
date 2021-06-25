@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, argumentos) => {
       "lembre-se de mencionar um usuário válido para tocar as mãos!"
     );
   }
+  
   const usuarioID = usuario.id;
   const usuarioV = usuarioID + 1 - 1;
   const amizadeID = autorV + usuarioV;

@@ -1,13 +1,23 @@
 const Discord = require("discord.js");
 const DiscordPages = require("discord-pages");
 const gis = require("g-i-s");
+const Filter = require("bad-words");
+const customFilter = new Filter({ placeHolder: "*" });
+
 exports.run = async (bot, message, argumentos) => {
   if (!message.guild.me.permissions.has("EMBED_LINKS"))
     return message.channel.send(
       ":warning: Eu estou sem permissão de `EMBED_LINKS` para continuar"
     );
 
-  const escolha = argumentos.join(" ").toLowerCase();
+  let escolha;
+
+  if (message.channel.nsfw) {
+    escolha = customFilter.clean(argumentos.join(" ").toLowerCase());
+  } else {
+    escolha = argumentos.join(" ").toLowerCase();
+  }
+
   const dev = bot.users.cache.get(process.env.DEV_ID);
   const ano = new Date();
   let talkedRecently = new Set();
@@ -60,7 +70,8 @@ exports.run = async (bot, message, argumentos) => {
       "pornozão",
       "pornozao"
     ];
-
+    if (escolha.includes("*") && !message.channel.nsfw)
+      return message.channel.send("Pesquisa não autorizada.");
     if (escolha.includes("zoofilia") && !message.channel.nsfw)
       return message.channel.send("Pesquisa não autorizada.");
     if (escolha.includes("zoofily") && !message.channel.nsfw)
@@ -112,11 +123,11 @@ exports.run = async (bot, message, argumentos) => {
         !message.channel.nsfw)
     )
       return message.channel.send("Pesquisa não autorizada");
-    message.channel.startTyping()
+    message.channel.startTyping();
     setTimeout(() => {
       message.channel.stopTyping();
       message.delete();
-    }, 1000)
+    }, 1000);
     //const aviso = await message.channel.send(`Procurando por ${escolha}...`).then(message.delete({timeout:1000}))
 
     gis(escolha, logResults);
