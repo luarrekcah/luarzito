@@ -4,6 +4,8 @@ module.exports = app => {
 	const { Client, Collection, GatewayIntentBits } = require('discord.js');
 	require('dotenv').config();
 
+	const config = require('./config.json');
+
 	const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 	client.commands = new Collection();
@@ -37,5 +39,7 @@ module.exports = app => {
 	}
 	console.log(`${eventCount} Eventos Carregados.`);
 
-	client.login(process.env.TOKEN);
+	console.log(`Iniciando BOT no modo de ${config.botConfig.development ? 'desenvolvimento' : 'produção'}`)
+
+	client.login(config.botConfig.development ? process.env.DEVELOPMENT_TOKEN : process.env.TOKEN);
 };

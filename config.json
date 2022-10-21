@@ -1,9 +1,11 @@
 {
   "botConfig": {
+    "development": false,
     "avatarsTheme": {
       "default": "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-icone.jpg?v=1618495057872"
     },
     "clientId": "743841329334845530",
+    "devClientId": "754297927605682257",
     "guildId": "742068003583295619",
     "devId": "701953428510736396",
     "themeColor": "#008cff"

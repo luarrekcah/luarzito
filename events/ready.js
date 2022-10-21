@@ -1,21 +1,23 @@
 const { ActivityType } = require('discord.js'),
- config = require('../config.json');
+  config = require('../config.json');
 
 module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    const channel = await client.channels.cache.get("792377178834337882");
+    if (!config.botConfig.development) {
+      const channel = await client.channels.cache.get("792377178834337882");
 
-    const channel_Privado = await client.channels.cache.get(
-      "757308101182357518"
-    );
+      const channel_Privado = await client.channels.cache.get(
+        "757308101182357518"
+      );
 
-    const aviso =
-      "<a:alerta:758339902386733098> | Sistema reiniciado com sucesso";
+      const aviso =
+        "<a:alerta:758339902386733098> | Sistema reiniciado com sucesso";
 
-    channel.send(aviso);
-    channel_Privado.send(aviso);
+      channel.send(aviso);
+      channel_Privado.send(aviso);
+    }
 
     const avatares = [
       config.botConfig.avatarsTheme.default
@@ -26,12 +28,12 @@ module.exports = {
     ];
 
     const atividades = [
-     // [`ATUALIZAÇÃO v3.0`,  ActivityType.Competing],
-     // [`Comandos globais disponíveis, tente /ajuda`,  ActivityType.Watching],
-      [`Entre no meu servidor!`,  ActivityType.Watching],
-      [`Obrigado por ainda me utilizar, meu desenvolvedor anda bem ocupado sabe! Mas vai dar tudo certo :)`,  ActivityType.Watching],
-     // [`/ideia funcional`,  ActivityType.Watching],
-     // [`Estou caindo muito? Provavelmente estão trabalhando em mim!`,  ActivityType.Watching]
+      // [`ATUALIZAÇÃO v3.0`,  ActivityType.Competing],
+      // [`Comandos globais disponíveis, tente /ajuda`,  ActivityType.Watching],
+      [`Entre no meu servidor!`, ActivityType.Watching],
+      [`Obrigado por ainda me utilizar, meu desenvolvedor anda bem ocupado sabe! Mas vai dar tudo certo :)`, ActivityType.Watching],
+      // [`/ideia funcional`,  ActivityType.Watching],
+      // [`Estou caindo muito? Provavelmente estão trabalhando em mim!`,  ActivityType.Watching]
     ];
 
     setInterval(async () => {

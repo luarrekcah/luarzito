@@ -17,9 +17,9 @@ fs.readdirSync('./commands').forEach((dir) => {
 	count++;
 });
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken(config.botConfig.development ? process.env.DEVELOPMENT_TOKEN : process.env.TOKEN);
 
-rest.put(Routes.applicationCommands(config.botConfig.clientId), { body: commands })
+rest.put(Routes.applicationCommands(config.botConfig.development ? config.botConfig.devClientId : config.botConfig.clientId), { body: commands })
 	.then(() => console.log(`[GLOBAL] ${count} Comandos Registrados com Sucesso`))
 	.catch(console.error);
 
