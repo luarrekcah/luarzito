@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders"),
   gis = require("g-i-s"),
   Discord = require("discord.js"),
   config = require("../../config.json"),
+  checker = require("../../utils/nsfw-checker"),
   { EmbedBuilder } = require('discord.js'),
   { Pagination } = require('pagination.djs');
 module.exports = {
@@ -19,6 +20,13 @@ module.exports = {
   execute(interaction) {
 
     const escolha = interaction.options.getString("query");
+    
+    if(checker(escolha) && !interaction.channel.nsfw) 
+      return interaction.reply({
+        content: "EPA, EPA! Essa pesquisa não pode nesse chat. Entre em um chat NSFW.",
+        ephemeral: true
+      });
+    
 
     gis(escolha, async (error, results) => {
       const pagination = new Pagination(interaction);
