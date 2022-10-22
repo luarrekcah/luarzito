@@ -27,5 +27,8 @@
     "helpBanner": "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-help.jpg?v=1618502639787",
     "infoEmbed": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Info_icon-72a7cf.svg/2048px-Info_icon-72a7cf.svg.png"
   },
-  "adsImages": ["https://cdn.discordapp.com/attachments/778691566168440854/1000857849674600468/Sem_titulo-1.png"]
+  "adsImages": [
+    "https://cdn.discordapp.com/attachments/778691566168440854/1000857849674600468/Sem_titulo-1.png",
+    "https://cdn.discordapp.com/attachments/1001535030130118707/1033180252836466768/luarzito.jpg" 
+  ]
 }

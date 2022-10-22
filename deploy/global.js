@@ -8,13 +8,13 @@ require('dotenv').config();
 const commands = [];
 let count = 0;
 fs.readdirSync('./commands').forEach((dir) => {
-	const commandFiles = fs.readdirSync(`./commands/${dir}`).filter((files) => files.endsWith(".js"));
+	const commandFiles = fs.readdirSync(`./commands/${dir}`).filter((files) => files.endsWith(".js") && dir !== 'dev');
 	console.log(commandFiles);
 	for (const file of commandFiles) {
 		const command = require(`../commands/${dir}/${file}`);
 		commands.push(command.data.toJSON());
+		count++;
 	}
-	count++;
 });
 
 const rest = new REST({ version: '9' }).setToken(config.botConfig.development ? process.env.DEVELOPMENT_TOKEN : process.env.TOKEN);

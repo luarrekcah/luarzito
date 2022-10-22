@@ -14,8 +14,8 @@ fs.readdirSync('./commands').forEach((dir) => {
 	for (const file of commandFiles) {
 		const command = require(`../commands/${dir}/${file}`);
 		commands.push(command.data.toJSON());
+		count++;
 	}
-	count++;
 });
 
 const rest = new REST({ version: '9' }).setToken(config.botConfig.development ? process.env.DEVELOPMENT_TOKEN : process.env.TOKEN);
