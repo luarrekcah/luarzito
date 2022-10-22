@@ -35,5 +35,8 @@
     "node",
     "glitch",
     "express"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^8.26.0"
+  }
 }
