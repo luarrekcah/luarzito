@@ -21,8 +21,6 @@ module.exports = {
 
     const escolha = interaction.options.getString("query");
 
-    console.log('tem buceta? ' + checker('buceta'));
-
     if(checker(escolha) && !interaction.channel.nsfw) 
       return interaction.reply({
         content: "EPA, EPA! Essa pesquisa não pode nesse chat. Entre em um chat NSFW.",

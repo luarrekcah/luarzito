@@ -1,12 +1,11 @@
 const fs = require('node:fs');
 
-function checker(content) {
-   fs.readFile('./utils/nsfwlist.txt', 'utf8', (err, data) => {
-        if (err) throw err;
-        const wordlist = data.replaceAll("\n", ",").replaceAll("\r", "").split(",");
-        console.log(`includes? ${wordlist.includes(content)}`)
+module.exports = {
+    checker: function (content) {
+        const wordlist = fs.readFileSync('./utils/nsfwlist.txt', 'utf8')
+            .replaceAll("\n", ",")
+            .replaceAll("\r", "")
+            .split(",");
         return (wordlist.includes(content));
-    });
-}
-
-module.exports = {checker};
+    }
+};
