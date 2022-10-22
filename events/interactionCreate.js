@@ -8,7 +8,8 @@ module.exports = {
 
 		if (interaction.isButton()) {
 			console.log(interaction);
-		} else {
+		}
+		else {
 			console.log(
 				`${interaction.user.tag} em #${interaction.channel.name}: ${interaction.commandName}`,
 			);
