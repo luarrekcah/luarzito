@@ -6,6 +6,6 @@ module.exports = {
             .replaceAll("\n", ",")
             .replaceAll("\r", "")
             .split(",");
-        return (wordlist.includes(content));
+        return (wordlist.includes(content.toLowerCase()));
     }
 };
