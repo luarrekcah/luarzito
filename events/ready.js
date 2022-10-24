@@ -20,7 +20,8 @@ module.exports = {
 		}
 
 		const avatares = [
-			config.botConfig.avatarsTheme.default,
+			// config.botConfig.avatarsTheme.default,
+			config.botConfig.avatarsTheme.halloween,
 		];
 
 		const status = [

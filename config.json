@@ -2,7 +2,8 @@
   "botConfig": {
     "development": false,
     "avatarsTheme": {
-      "default": "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-icone.jpg?v=1618495057872"
+      "default": "https://cdn.glitch.com/3e9845c4-e236-46fa-831d-a4f8e76aa207%2FLuarzito-icone.jpg?v=1618495057872",
+      "halloween": "https://cdn.discordapp.com/attachments/747517760589922305/1034220671686955088/pfp.jpg"
     },
     "clientId": "743841329334845530",
     "devClientId": "754297927605682257",

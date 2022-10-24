@@ -16,7 +16,7 @@ module.exports = {
 				.setDescription('Imagem de quê você busca?')
 				.setRequired(true),
 		),
-	execute(interaction) {
+	async execute(interaction) {
 
 		const escolha = interaction.options.getString('query');
 
@@ -32,7 +32,7 @@ module.exports = {
 
 			const embeds = [];
 
-			results.forEach(item => {
+			results.forEach(async item => {
 				const newEmbed = new EmbedBuilder()
 					.setColor(config.botConfig.themeColor)
 					.setAuthor({ name: 'i.s - Image Search', iconURL: config.imagesLink.infoEmbed })
