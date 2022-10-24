@@ -19,11 +19,9 @@ module.exports = {
 			channel_Privado.send(aviso);
 		}
 
-		/*
 		const avatares = [
 			config.botConfig.avatarsTheme.halloween,
 		];
-		*/
 		// config.botConfig.avatarsTheme.default,
 
 		const status = [
@@ -59,6 +57,9 @@ module.exports = {
 			await client.user.setAvatar(avatares[c]);
 		}, 400000);
 		*/
+
+
+		await client.user.setAvatar(avatares[0]);
 
 		console.log(
 			`========= Preparado, logado como: ${client.user.tag} ========= `,
