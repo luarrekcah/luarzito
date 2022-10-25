@@ -19,47 +19,19 @@ module.exports = {
 			channel_Privado.send(aviso);
 		}
 
-		const avatares = [
-			config.botConfig.avatarsTheme.halloween,
-		];
-		// config.botConfig.avatarsTheme.default,
-
-		const status = [
-			'online',
-		];
-
 		const atividades = [
-			// [`ATUALIZAÇÃO v3.0`,  ActivityType.Competing],
-			// [`Comandos globais disponíveis, tente /ajuda`,  ActivityType.Watching],
-			['Entre no meu servidor!', ActivityType.Watching],
+			['Tem alguma ideia? Use o comando /sugestao!', ActivityType.Competing],
+			['Heeey, ainda não entrou no meu servidor? Use o comando /ajuda para entrar!', ActivityType.Watching],
+			['Acesse luarzito.devluar.com', ActivityType.Competing],
 			['Obrigado por ainda me utilizar, meu desenvolvedor anda bem ocupado sabe! Mas vai dar tudo certo :)', ActivityType.Watching],
-			// [`/ideia funcional`,  ActivityType.Watching],
-			// [`Estou caindo muito? Provavelmente estão trabalhando em mim!`,  ActivityType.Watching]
 		];
 
 		setInterval(async () => {
-			// controlar o intervalo
 			const i = Math.floor(Math.random() * atividades.length + 1) - 1;
 			await client.user.setActivity(atividades[i][0], {
 				type: atividades[i][1],
 			});
 		}, 10000);
-		// intervalo
-
-		setInterval(async () => {
-			const b = Math.floor(Math.random() * status.length + 1) - 1;
-			await client.user.setStatus(status[b]);
-		}, 20000);
-
-		/*
-		setInterval(async () => {
-			const c = Math.floor(Math.random() * avatares.length + 1) - 1;
-			await client.user.setAvatar(avatares[c]);
-		}, 400000);
-		*/
-
-
-		await client.user.setAvatar(avatares[0]);
 
 		console.log(
 			`========= Preparado, logado como: ${client.user.tag} ========= `,
