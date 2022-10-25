@@ -1,5 +1,7 @@
-# luarzito
+# Luarzito - Um simples bot para o Discord!
 Repositório com a lógica atual do Luarzito
+
+Acesse o [site](https://luarzito.devluar.com/)
 
 # Como contribuir
 
