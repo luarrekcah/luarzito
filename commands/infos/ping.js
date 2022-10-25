@@ -14,8 +14,6 @@ module.exports = {
 			clientID = client.users.cache.get(config.botConfig.clientId),
 			clientAvatar = `https://cdn.discordapp.com/avatars/${clientID.id}/${clientID.avatar}.png`;
 
-		canvas.registerFont('../../fonts/techno_hideo.ttf', { family: 'techno' });
-
 		let totalSeconds = client.uptime / 1000;
 		const
 			days = Math.floor(totalSeconds / 86400),
@@ -169,7 +167,7 @@ module.exports = {
 		ctx.strokeStyle = '#74037b';
 		ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-		ctx.font = '20px, techno';
+		ctx.font = '20px Arial';
 		ctx.fillStyle = '#ffffff';
 		ctx.fillText(
 			`${uptime}`,
@@ -179,7 +177,7 @@ module.exports = {
 			// 1.5 quanto menos, baixo
 		);
 
-		ctx.font = '20px, techno';
+		ctx.font = '20px Arial';
 		ctx.fillStyle = '#ffffff';
 		ctx.fillText(
 			`${latenciaSV}ms`,
@@ -189,7 +187,7 @@ module.exports = {
 			// 1.5 quanto menos, baixo
 		);
 
-		ctx.font = '20px, techno';
+		ctx.font = '20px Arial';
 		ctx.fillStyle = '#ffffff';
 		ctx.fillText(
 			`${api}ms`,
