@@ -20,7 +20,8 @@
     "g-i-s": "^2.1.6",
     "moment": "^2.29.4",
     "node-reverse-image-search": "^1.0.2",
-    "pagination.djs": "^4.0.3"
+    "pagination.djs": "^4.0.3",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "16"
