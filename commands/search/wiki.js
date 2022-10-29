@@ -17,8 +17,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const query = interaction.options.getString('query');
-
-
+        
 		const { body } = axios.get('https://pt.wikipedia.org/w/api.php', {
 			params: {
 				action: 'query',
