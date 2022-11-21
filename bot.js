@@ -11,9 +11,9 @@ module.exports = app => {
 	client.commands = new Collection();
 
 	let commandCount = 0,
-	eventCount = 0;
+		eventCount = 0;
 	fs.readdirSync('./commands').forEach((dir) => {
-		const commandFiles = fs.readdirSync(`./commands/${dir}`).filter((files) => files.endsWith(".js"));
+		const commandFiles = fs.readdirSync(`./commands/${dir}`).filter((files) => files.endsWith('.js'));
 		for (const file of commandFiles) {
 			const command = require(`./commands/${dir}/${file}`);
 			client.commands.set(command.data.name, command);
@@ -39,7 +39,7 @@ module.exports = app => {
 	}
 	console.log(`${eventCount} Eventos Carregados.`);
 
-	console.log(`Iniciando BOT no modo de ${config.botConfig.development ? 'desenvolvimento' : 'produção'}`)
+	console.log(`Iniciando BOT no modo de ${config.botConfig.development ? 'desenvolvimento' : 'produção'}`);
 
 	client.login(config.botConfig.development ? process.env.DEVELOPMENT_TOKEN : process.env.TOKEN);
 };

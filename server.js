@@ -12,6 +12,7 @@ app.get('/', function(req, res) {
 });
 
 require(__dirname + '/bot.js')(app);
+require(__dirname + '/database/init.js');
 
 path.resolve();
 
