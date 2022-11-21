@@ -18,11 +18,17 @@ module.exports = {
 				ephemeral: true,
 			});
 		}
-		const ch = client.channels.cache.get(channel) || interaction.channel;
+
+		await interaction.reply({
+			content:
+        '<a:alerta:758339902386733098> | Aguarde, estou coletando minhas informações, pode demorar um pouco...',
+			fetchReply: true,
+		});
+		const ch = client.channels.cache.get(channel);
 		await ch
 			.createInvite({ unique: true })
 			.then(invite => {
-				return interaction.reply({
+				return interaction.followUp({
 					content: 'https://discord.gg/' + invite.code,
 					ephemeral: true,
 				});
