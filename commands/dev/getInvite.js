@@ -23,6 +23,7 @@ module.exports = {
 			content:
         '<a:alerta:758339902386733098> | Aguarde, estou coletando minhas informações, pode demorar um pouco...',
 			fetchReply: true,
+			ephemeral: true,
 		});
 		const ch = client.channels.cache.get(channel);
 		await ch
