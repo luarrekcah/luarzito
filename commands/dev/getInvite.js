@@ -3,8 +3,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders'),
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('dm')
-		.setDescription('Desenvolvedor apenas')
+		.setName('newinvite')
+		.setDescription('Gera um convite de um canal!')
 		.addStringOption(option =>
 			option.setName('channel')
 				.setDescription('Id do canal')
