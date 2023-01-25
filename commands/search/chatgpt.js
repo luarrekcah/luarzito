@@ -21,6 +21,12 @@ module.exports = {
 		const
 			message = interaction.options.getString('mensagem');
 
+		await interaction.reply({
+			content:
+			'Pensando...',
+			fetchReply: true,
+		});
+
 		const completion = await openai.createCompletion({
 			model: 'text-davinci-003',
 			prompt: message,
@@ -32,7 +38,7 @@ module.exports = {
 			stop: [' Human:', ' AI:'],
 		});
 
-		return interaction.reply({
+		await interaction.editReply({
 			content:  completion.data.choices[0].text.trim()
 				.replace('Robot:', '')
 				.replace('Robô:', '')
