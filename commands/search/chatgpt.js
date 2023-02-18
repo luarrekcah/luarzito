@@ -29,18 +29,21 @@ module.exports = {
 			fetchReply: true,
 		});
 
-		const personality = 'Human: Eae, quem é você? \n\nAI:Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi. \n\nHuman:';
+		const personality = 'Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
+
+		const prompt = personality + '\n\n' + message;
 
 		const completion = await openai.createCompletion({
 			model: 'text-davinci-003',
-			prompt: personality + message,
-			temperature: 0.9,
+			prompt: prompt,
+			temperature: 0.5,
 			max_tokens: 150,
 			top_p: 1,
 			frequency_penalty: 0,
 			presence_penalty: 0.6,
-			stop: [' Human:', ' AI:'],
+			stop: ['\n', ' Luarzito:'],
 		});
+
 
 		const reply = completion.data.choices[0].text.trim();
 		let cleanedReply = reply.replaceAll(/(Robot:|Robô:|Bot:|Computer:)/gi, '');
