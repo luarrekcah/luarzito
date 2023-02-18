@@ -71,7 +71,7 @@ module.exports = {
 			}
 			catch (error) {
 				console.error(error);
-				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
+				await interaction.editReply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
 			}
 		}
 	},
