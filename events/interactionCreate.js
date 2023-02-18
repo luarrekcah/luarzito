@@ -1,5 +1,5 @@
 const config = require('../config.json'),
-	{ MessageEmbed } = require('discord.js');
+	{ EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -46,7 +46,7 @@ module.exports = {
 					inline: false,
 				},
 			];
-			const embed = new MessageEmbed()
+			const embed = new EmbedBuilder()
 				.setColor(config.botConfig.themeColor)
 				.setThumbnail(
 					interaction.guild.iconURL({
