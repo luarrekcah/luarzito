@@ -66,13 +66,15 @@ module.exports = {
 
 			if (!command) return;
 
-			try {
-				await command.execute(interaction);
+			await command.execute(interaction);
+
+			/*try {
+				
 			}
 			catch (error) {
 				console.error(error);
 				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
-			}
+			}*/
 		}
 	},
 };
