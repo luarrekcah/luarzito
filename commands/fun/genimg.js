@@ -1,13 +1,13 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const axios = require('axios');
+const { SlashCommandBuilder } = require('discord.js');
+const { Configuration, OpenAIApi } = require('openai');
 
 require('dotenv').config();
 
-const apiKey = process.env.OPENAI_API_KEY;
+const configuration = new Configuration({
+	apiKey: process.env.OPENAI_API_KEY,
+});
 
-const model = 'image-alpha-001';
-
-const url = 'https://api.openai.com/v1/images/generations';
+const openai = new OpenAIApi(configuration);
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -27,31 +27,24 @@ module.exports = {
 			fetchReply: true,
 		});
 
-		axios
-			.post(
-				url,
-				{
-					model: model,
-					prompt: prompt,
-					num_images: 1,
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${apiKey}`,
-						'Content-Type': 'application/json',
-					},
-				},
-			)
-			.then(async (response) => {
-				await interaction.editReply({
-					content: response.data.data[0].url,
-				});
-			})
-			.catch(async (error) => {
-				await interaction.editReply({
-					content: 'Desculpe... Ocorreu um erro.',
-				});
-				console.error('Erro ao gerar a imagem:', error);
+
+		const response = await openai.createImage({
+			prompt,
+			n: 1,
+			size: '1024x1024',
+		});
+
+		if (response) {
+			return await interaction.editReply({
+				content: response.data.data[0].url,
 			});
+		}
+		else {
+			return await interaction.editReply({
+				content: 'Ok... Algo deu errado...',
+			});
+		}
+
+
 	},
 };
