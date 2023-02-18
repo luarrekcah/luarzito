@@ -1,5 +1,5 @@
 const config = require('../config.json'),
-	{ EmbedBuilder } = require('discord.js');
+	{ MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'interactionCreate',
@@ -14,67 +14,70 @@ module.exports = {
 				`${interaction.user.tag} em #${interaction.channel.name}: ${interaction.commandName}`,
 			);
 
-			const opts = [];
-			for (let i = 0; i < interaction.options._hoistedOptions.length; i++) {
-				opts.push(interaction.options._hoistedOptions[i].value);
-			}
-			const logChannel = client.channels.cache.get(config.logsChannel.slashLogId),
-				fields = [
-					{
-						name: 'Autor:',
-						value: `<@${interaction.user.id}> - (\`${interaction.user.id}\`)`,
-						inline: false,
-					},
-					{
-						name: 'Comando:',
-						value: `${interaction.commandName} ${opts.join(' ')}`,
-						inline: false,
-					},
-					{
-						name: 'Id da mensagem/comando:',
-						value: `${interaction.id}`,
-						inline: false,
-					},
-					{
-						name: 'Canal:',
-						value: `${interaction.channel.name} - (${interaction.channel.id})`,
-						inline: false,
-					},
-					{
-						name: 'Servidor:',
-						value: `${interaction.guild.name} - (${interaction.guild.id})`,
-						inline: false,
-					},
-				],
-				embed = new EmbedBuilder()
-					.setColor(config.botConfig.themeColor)
-					.setThumbnail(
-						interaction.guild.iconURL({
-							dynamic: true,
-							size: 2048,
-						}),
-					)
-					.setTitle('Luarzito - Logs')
-					.setDescription('Log de Comandos')
-					.setFields(fields);
+			const opts = interaction.options.data.map((option) => option.value);
 
-			logChannel.send({ embeds: [embed] });
+			const logChannel = client.channels.cache.get(config.logsChannel.slashLogId);
+			if (!logChannel) return console.error(`Log channel not found: ${config.logsChannel.slashLogId}`);
 
-			if (!interaction.isChatInputCommand()) return;
+			const fields = [
+				{
+					name: 'Autor:',
+					value: `<@${interaction.user.id}> - (\`${interaction.user.id}\`)`,
+					inline: false,
+				},
+				{
+					name: 'Comando:',
+					value: `${interaction.commandName} ${opts.join(' ')}`,
+					inline: false,
+				},
+				{
+					name: 'Id da mensagem/comando:',
+					value: `${interaction.id}`,
+					inline: false,
+				},
+				{
+					name: 'Canal:',
+					value: `${interaction.channel.name} - (${interaction.channel.id})`,
+					inline: false,
+				},
+				{
+					name: 'Servidor:',
+					value: `${interaction.guild.name} - (${interaction.guild.id})`,
+					inline: false,
+				},
+			];
+			const embed = new MessageEmbed()
+				.setColor(config.botConfig.themeColor)
+				.setThumbnail(
+					interaction.guild.iconURL({
+						dynamic: true,
+						size: 2048,
+					}),
+				)
+				.setTitle('Luarzito - Logs')
+				.setDescription('Log de Comandos')
+				.addFields(fields);
+
+			logChannel.send({ embeds: [embed] })
+				.catch((error) => {
+					console.error(`Error sending interaction log: ${error}`);
+				});
+
+			if (!interaction.isCommand()) return;
 
 			const command = client.commands.get(interaction.commandName);
-
 			if (!command) return;
 
-			await command.execute(interaction);
-
-			/*try {
-				
+			try {
+				await command.execute(interaction);
 			}
 			catch (error) {
-				console.error(error);
-				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
-			}*/
+				console.error(`Error executing command: ${error}`);
+				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true })
+					.catch((er) => {
+						console.error(`Error sending error response: ${er}`);
+					});
+			}
 		}
 	},
 };
