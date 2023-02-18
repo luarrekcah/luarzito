@@ -58,7 +58,10 @@ module.exports = {
 					.setDescription('Log de Comandos')
 					.setFields(fields);
 
-			logChannel.send({ embeds: [embed] });
+			logChannel.send({ embeds: [embed] })
+				.catch(error => {
+					console.error(error);
+				});
 
 			if (!interaction.isChatInputCommand()) return;
 
@@ -71,7 +74,7 @@ module.exports = {
 			}
 			catch (error) {
 				console.error(error);
-				await interaction.editReply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
+				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true });
 			}
 		}
 	},
