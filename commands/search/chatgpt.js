@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require('openai');
-
 const dbchat = require('../../chatbot.json');
+const levenshtein = require('js-levenshtein');
 
 require('dotenv').config();
 
@@ -25,6 +25,8 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
+		let bestMatch = null;
+		let bestMatchDistance = Number.MAX_SAFE_INTEGER;
 
 		await interaction.reply({
 			content: 'Pensando...',
@@ -33,11 +35,18 @@ module.exports = {
 
 		for (let i = 0; i < dbchat.length; i++) {
 			const item = dbchat[i];
-			if (message.toLowerCase().includes(item.q.toLowerCase())) {
-				return await interaction.editReply({
-					content: item.r,
-				});
+			const distance = levenshtein(message.toLowerCase(), item.q.toLowerCase());
+
+			if (distance < bestMatchDistance && distance < 3) {
+				bestMatch = item.r;
+				bestMatchDistance = distance;
 			}
+		}
+
+		if (bestMatch) {
+			return await interaction.editReply({
+				content: bestMatch,
+			});
 		}
 
 		const completion = await openai.createCompletion({
@@ -51,13 +60,20 @@ module.exports = {
 			stop: [' Human:', ' AI:'],
 		});
 
+		const reply = completion.data.choices[0].text.trim();
+		let cleanedReply = reply.replaceAll(
+			/(Robot:|Robô:|Bot:|Computer:)/gi,
+			'',
+		);
+
+		const regex = /^[a-z].*$/m;
+		const match = cleanedReply.match(regex);
+		if (match) {
+			cleanedReply = cleanedReply.replace(match[0], '');
+		}
+
 		await interaction.editReply({
-			content: completion.data.choices[0].text
-				.trim()
-				.replace('Robot:', '')
-				.replace('Robô:', '')
-				.replace('Bot:', '')
-				.replace('Computer:', ''),
+			content: cleanedReply,
 		});
 	},
 };
