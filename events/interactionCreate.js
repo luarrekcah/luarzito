@@ -68,15 +68,16 @@ module.exports = {
 			const command = client.commands.get(interaction.commandName);
 			if (!command) return;
 
+
 			try {
-				await command.execute(interaction);
+				return command.execute(interaction);
 			}
 			catch (error) {
-				console.error(`Error executing command: ${error}`);
-				await interaction.reply({ content: 'Houve um erro ao executar esse comando!', ephemeral: true })
-					.catch((er) => {
-						console.error(`Error sending error response: ${er}`);
-					});
+				console.error(error);
+				interaction.reply({
+					content: 'Caaaalma! Deu um erro aqui.',
+					ephemeral: true,
+				});
 			}
 		}
 	},
