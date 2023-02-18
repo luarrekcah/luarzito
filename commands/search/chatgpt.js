@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require('openai');
-const dbchat = require('../../chatbot.json');
-const levenshtein = require('js-levenshtein');
 
 require('dotenv').config();
 
@@ -25,33 +23,17 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
-		let bestMatch = null;
-		let bestMatchDistance = Number.MAX_SAFE_INTEGER;
 
 		await interaction.reply({
 			content: 'Pensando...',
 			fetchReply: true,
 		});
 
-		for (let i = 0; i < dbchat.length; i++) {
-			const item = dbchat[i];
-			const distance = levenshtein(message.toLowerCase(), item.q.toLowerCase());
-
-			if (distance < bestMatchDistance && distance < 3) {
-				bestMatch = item.r;
-				bestMatchDistance = distance;
-			}
-		}
-
-		if (bestMatch) {
-			return await interaction.editReply({
-				content: bestMatch,
-			});
-		}
+		const personality = 'AI:Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi. \n\nHuman:';
 
 		const completion = await openai.createCompletion({
 			model: 'text-davinci-003',
-			prompt: message,
+			prompt: personality + message,
 			temperature: 0.9,
 			max_tokens: 150,
 			top_p: 1,
@@ -61,10 +43,7 @@ module.exports = {
 		});
 
 		const reply = completion.data.choices[0].text.trim();
-		let cleanedReply = reply.replaceAll(
-			/(Robot:|Robô:|Bot:|Computer:)/gi,
-			'',
-		);
+		let cleanedReply = reply.replaceAll(/(Robot:|Robô:|Bot:|Computer:)/gi, '');
 
 		const regex = /^[a-z].*$/m;
 		const match = cleanedReply.match(regex);
