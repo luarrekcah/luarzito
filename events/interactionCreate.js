@@ -58,10 +58,7 @@ module.exports = {
 					.setDescription('Log de Comandos')
 					.setFields(fields);
 
-			logChannel.send({ embeds: [embed] })
-				.catch(error => {
-					console.error(error);
-				});
+			logChannel.send({ embeds: [embed] });
 
 			if (!interaction.isChatInputCommand()) return;
 
