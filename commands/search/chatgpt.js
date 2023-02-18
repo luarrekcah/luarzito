@@ -29,7 +29,7 @@ module.exports = {
 			fetchReply: true,
 		});
 
-		const personality = 'AI:Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi. \n\nHuman:';
+		const personality = 'Human: Eae, quem é você? \n\nAI:Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi. \n\nHuman:';
 
 		const completion = await openai.createCompletion({
 			model: 'text-davinci-003',
