@@ -1,6 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require('openai');
 
+const dbchat = require('../../chatbot.json');
+
 require('dotenv').config();
 
 const configuration = new Configuration({
@@ -12,20 +14,31 @@ const openai = new OpenAIApi(configuration);
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('chatgpt')
-		.setDescription('Apenas perguntas, comando integrado ao ChatGPT-3 da openia.')
-		.addStringOption(option =>
-			option.setName('mensagem')
+		.setDescription(
+			'Apenas perguntas, comando integrado ao ChatGPT-3 da openia.',
+		)
+		.addStringOption((option) =>
+			option
+				.setName('mensagem')
 				.setDescription('Mensagem para o bot')
-				.setRequired(true)),
+				.setRequired(true),
+		),
 	async execute(interaction) {
-		const
-			message = interaction.options.getString('mensagem');
+		const message = interaction.options.getString('mensagem');
 
 		await interaction.reply({
-			content:
-			'Pensando...',
+			content: 'Pensando...',
 			fetchReply: true,
 		});
+
+		for (let i = 0; i < dbchat.length; i++) {
+			const item = dbchat[i];
+			if (message.toLowerCase().includes(item.q.toLowerCase())) {
+				return await interaction.editReply({
+					content: item.r,
+				});
+			}
+		}
 
 		const completion = await openai.createCompletion({
 			model: 'text-davinci-003',
@@ -39,7 +52,8 @@ module.exports = {
 		});
 
 		await interaction.editReply({
-			content:  completion.data.choices[0].text.trim()
+			content: completion.data.choices[0].text
+				.trim()
 				.replace('Robot:', '')
 				.replace('Robô:', '')
 				.replace('Bot:', '')
