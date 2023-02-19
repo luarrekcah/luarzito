@@ -24,6 +24,11 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
 
+		return interaction.reply({
+			content: '[Aviso do desenvolvedor] Esse comando está em manutenção, caso deseje saber mais sobre, entre no servidor!',
+			fetchReply: true,
+		});
+
 		await interaction.reply({
 			content: 'Pensando...',
 			fetchReply: true,
