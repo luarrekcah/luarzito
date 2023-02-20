@@ -25,7 +25,7 @@ module.exports = {
 		const message = interaction.options.getString('mensagem');
 		try {
 			const modelName = 'text-davinci-003';
-			const stopSequences = ['Human:', ' Luarzito:'];
+			const stopSequences = ['Human:', 'Luarzito:'];
 
 			await interaction.reply({
 				content: 'Pensando...',
@@ -33,13 +33,13 @@ module.exports = {
 			});
 
 			const personality =
-        'Luarzito: Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
-			const prompt = `${personality}\n\nHuman:${message}`;
+        'Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
+			const prompt = `Luarzito: ${personality}\n\nHuman: ${message}`;
 			const completion = await openai.createCompletion({
 				model: modelName,
 				prompt,
 				temperature: 0.5,
-				max_tokens: 150,
+				max_tokens: 500,
 				top_p: 1,
 				frequency_penalty: 0,
 				presence_penalty: 0.6,
