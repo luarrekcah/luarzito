@@ -23,44 +23,52 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
+		try {
+			const modelName = 'text-davinci-003';
+			const stopSequences = ['Human:', ' Luarzito:'];
 
-		return interaction.reply({
-			content: '[Aviso do desenvolvedor] Esse comando está em manutenção, caso deseje saber mais sobre, entre no servidor!',
-			fetchReply: true,
-		});
+			await interaction.reply({
+				content: 'Pensando...',
+				fetchReply: true,
+			});
 
-		await interaction.reply({
-			content: 'Pensando...',
-			fetchReply: true,
-		});
+			const personality =
+        'Luarzito: Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
+			const prompt = `${personality}\n\nHuman:${message}`;
+			const completion = await openai.createCompletion({
+				model: modelName,
+				prompt,
+				temperature: 0.5,
+				max_tokens: 150,
+				top_p: 1,
+				frequency_penalty: 0,
+				presence_penalty: 0.6,
+				stop: stopSequences,
+			});
 
-		const personality = 'Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
+			const reply = completion.data.choices[0].text.trim();
+			let cleanedReply = reply.replaceAll(
+				/(Robot:|Robô:|Bot:|Computer:)/gi,
+				'',
+			);
 
-		const prompt = personality + '\n\n' + message;
+			const regex = /^[a-z].*$/m;
+			const match = cleanedReply.match(regex);
+			if (match) {
+				cleanedReply = cleanedReply.replace(match[0], '');
+			}
 
-		const completion = await openai.createCompletion({
-			model: 'text-davinci-003',
-			prompt: prompt,
-			temperature: 0.5,
-			max_tokens: 150,
-			top_p: 1,
-			frequency_penalty: 0,
-			presence_penalty: 0.6,
-			stop: ['\n', ' Luarzito:'],
-		});
-
-
-		const reply = completion.data.choices[0].text.trim();
-		let cleanedReply = reply.replaceAll(/(Robot:|Robô:|Bot:|Computer:)/gi, '');
-
-		const regex = /^[a-z].*$/m;
-		const match = cleanedReply.match(regex);
-		if (match) {
-			cleanedReply = cleanedReply.replace(match[0], '');
+			await interaction.editReply({
+				content: cleanedReply,
+			});
 		}
-
-		await interaction.editReply({
-			content: cleanedReply,
-		});
+		catch (error) {
+			console.error(error);
+			await interaction.reply({
+				content:
+          'Desculpe, algo deu errado. Por favor, tente novamente mais tarde.',
+				ephemeral: true,
+			});
+		}
 	},
 };
