@@ -12,7 +12,6 @@ module.exports = {
 		const dev = client.users.cache.get(config.botConfig.devId);
 		const ano = new Date();
 		const embed = new EmbedBuilder()
-
 			.setColor(config.botConfig.themeColor)
 			.setAuthor({ name: 'Ajuda - Resumo', iconURL: config.imagesLink.infoEmbed })
 			.setImage(config.adsImages[Math.floor(Math.random() * config.adsImages.length + 1) - 1])
