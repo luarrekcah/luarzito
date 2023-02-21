@@ -20,8 +20,15 @@ module.exports = {
 
 		const escolha = interaction.options.getString('query');
 
+		await interaction.reply({
+			content: 'Pesquisando...',
+			ephemeral: true,
+			fetchReply: true,
+		});
+
+
 		if (checker(escolha) && !interaction.channel.nsfw) {
-			return interaction.reply({
+			return interaction.editReply({
 				content: 'EPA, EPA! Essa pesquisa não pode nesse chat. Entre em um chat NSFW.',
 				ephemeral: true,
 			});
