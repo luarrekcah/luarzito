@@ -29,19 +29,19 @@ module.exports = {
 		updateItem({
 			path: `users/${dest.user.id}/economy`,
 			params: {
-				money: moneyDest + value,
+				money: moneyDest.money + value,
 			},
 		});
 
 		updateItem({
 			path: `users/${interaction.user.id}/economy`,
 			params: {
-				money: moneyUser - value,
+				money: moneyUser.money - value,
 			},
 		});
 
 		return interaction.reply({
-			content: `Você enviou L$${value} para <$${dest.user.id}>. Saldo atual: L$${moneyUser - value}`,
+			content: `Você enviou L$${value} para <$${dest.user.id}>. Saldo atual: L$${moneyUser.money - value}`,
 		});
 	},
 };
