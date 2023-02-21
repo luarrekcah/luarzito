@@ -23,6 +23,12 @@ module.exports = {
 		const dest = interaction.options.getMember('usuario');
 		const value = interaction.options.getNumber('valor');
 
+		if (dest.user.id === interaction.user.id) {
+			return interaction.reply({
+				content: 'Você não pode movimentar dinheiro a si mesmo.',
+			});
+		}
+
 		const moneyDest = await getItems({ path: `users/${dest.user.id}/economy` });
 		const moneyUser = await getItems({ path: `users/${interaction.user.id}/economy` });
 
