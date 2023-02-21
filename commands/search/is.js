@@ -22,7 +22,6 @@ module.exports = {
 
 		await interaction.reply({
 			content: 'Pesquisando...',
-			ephemeral: true,
 			fetchReply: true,
 		});
 
