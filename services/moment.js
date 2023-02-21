@@ -11,7 +11,10 @@ module.exports = {
 		return duration;
 	},
 	timeLeft: (time) => {
-		const nextInteractionTime = moment(time, 'DD/MM/YYYY HH:mm:ss').add(3, 'hours');
-		return `<t:${Math.floor(nextInteractionTime / 1000)}:R>`;
+		const lastInteractionTime = new Date(time);
+		const nextInteractionTime = new Date(lastInteractionTime.getTime() + 3 * 60 * 60 * 1000);
+		const timeInSeconds = Math.floor(nextInteractionTime.getTime() / 1000);
+
+		return `<t:${timeInSeconds}:R>`;
 	},
 };

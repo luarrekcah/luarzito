@@ -17,7 +17,7 @@ module.exports = {
 		const lastUse = compareTime(lastWorkCheck);
 		if (lastUse.asHours() <= 3.0) {
 			return interaction.reply({
-				content: `Você precisa esperar no mínimo 3 horas para poder trabalhar de novo! Falta ${timeLeft(lastWorkCheck)} `,
+				content: `Você precisa esperar no mínimo 3 horas para poder trabalhar de novo! Você poderá trabalhar de novo ${timeLeft(lastWorkCheck)} `,
 			});
 		}
 		// }
