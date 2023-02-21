@@ -41,7 +41,7 @@ module.exports = {
 		});
 
 		return interaction.reply({
-			content: `Você enviou L$${value} para <$${dest.user.id}>. Saldo atual: L$${moneyUser.money - value}`,
+			content: `Você enviou L$${value} para <@${dest.user.id}>. Saldo atual: L$${moneyUser.money - value}`,
 		});
 	},
 };
