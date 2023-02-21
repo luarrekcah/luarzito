@@ -29,7 +29,7 @@ module.exports = {
 		let actualMoney = await getItems({ path: `users/${interaction.user.id}/economy/money` });
 
 		if (!actualMoney) {
-			actualMoney = 0;
+			actualMoney = 1;
 		}
 
 		updateItem({

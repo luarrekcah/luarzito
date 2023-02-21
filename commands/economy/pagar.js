@@ -21,7 +21,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const dest = interaction.options.getMember('usuario');
-		const value = Number(interaction.options.getNumber('valor'));
+		const value = interaction.options.getNumber('valor');
 
 		const moneyDest = await getItems({ path: `users/${dest.user.id}/economy` });
 		const moneyUser = await getItems({ path: `users/${interaction.user.id}/economy` });
@@ -41,7 +41,7 @@ module.exports = {
 		});
 
 		return interaction.reply({
-			content: `Você enviou L$${value} para <$${dest.user.id}>.`,
+			content: `Você enviou L$${value} para <$${dest.user.id}>. Saldo atual: L$${moneyUser - value}`,
 		});
 	},
 };
