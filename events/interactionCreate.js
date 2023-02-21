@@ -68,7 +68,6 @@ module.exports = {
 			const command = client.commands.get(interaction.commandName);
 			if (!command) return;
 
-
 			try {
 				return command.execute(interaction);
 			}

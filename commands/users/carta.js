@@ -16,7 +16,7 @@ module.exports = {
 		const { client } = interaction,
 			id = interaction.options.getString('id'),
 			message = interaction.options.getString('mensagem');
-		const allMessage = `Carta de <@${interaction.author.id}> - (${interaction.author.id}):\n\n${message}`;
+		const allMessage = `Carta de <@${interaction.user.id}> - (${interaction.user.id}):\n\n${message}`;
 		try {
 			client.users.send(id, allMessage);
 		}
