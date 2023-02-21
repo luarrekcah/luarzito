@@ -32,9 +32,7 @@ module.exports = {
 				fetchReply: true,
 			});
 
-			const personality =
-        'Olá! Meu nome é Luarzito, fui desenvolvido pelo engenheiro de software Raul Rodrigues, no dia 14 de agosto de 2020, como posso lhe ajudar? Hihi.';
-			const prompt = message;// `Luarzito: ${personality}\n\nHuman: ${message}`;
+			const prompt = message;
 			const completion = await openai.createCompletion({
 				model: modelName,
 				prompt,
