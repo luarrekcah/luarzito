@@ -1,10 +1,19 @@
-const { getDatabase, ref, push, update, remove, get } = require('@firebase/database');
+const { getDatabase, ref, push, update, remove, get, set } = require('@firebase/database');
 
 module.exports = {
 	createItem: ({ path, params }) => {
 		const db = getDatabase();
 		if (!path) return { error: 'Sem path' };
 		push(ref(db, `luarzito/${path}`), params).then(
+			console.log('[LOG] Gravação no banco de dados'),
+		).catch((error) => {
+			console.warn(error);
+		});
+	},
+	setItem: ({ path, params }) => {
+		const db = getDatabase();
+		if (!path) return { error: 'Sem path' };
+		set(ref(db, `luarzito/${path}`), params).then(
 			console.log('[LOG] Gravação no banco de dados'),
 		).catch((error) => {
 			console.warn(error);
