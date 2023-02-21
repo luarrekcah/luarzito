@@ -14,9 +14,11 @@ module.exports = {
 
 		const moneyEarned = Math.floor(Math.random() * (120 - 60 + 1)) + 60;
 
-		let actualMoney = (await getItems({ path: `users/${interaction.user.id}/economy/money` })) || 0;
+		let actualMoney = await getItems({ path: `users/${interaction.user.id}/economy/money` });
 
-		actualMoney = Number(actualMoney);
+		if (!actualMoney) {
+			actualMoney = 0;
+		}
 
 		updateItem({
 			path: `users/${interaction.user.id}/economy`,
