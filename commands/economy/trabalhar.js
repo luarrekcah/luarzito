@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { updateItem, getItems } = require('../../database');
 const works = require('../../data/works.json');
+const { getTime, compareTime, timeLeft } = require('../../services/moment');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,6 +10,17 @@ module.exports = {
 			'Um dos grandes meios de ganhar dinheiro no Luarzito!',
 		),
 	async execute(interaction) {
+
+		const lastWorkCheck = await getItems({ path: `users/${interaction.user.id}/economy/lastWork` });
+
+		if (lastWorkCheck) {
+			const lastUse = compareTime(lastWorkCheck);
+			if (lastUse.asHours() <= 3.0) {
+				return interaction.reply({
+					content: `Você precisa esperar no mínimo 3 horas para poder trabalhar de novo! Falta ${timeLeft(lastWorkCheck)} `,
+				});
+			}
+		}
 
 		const randomWork = works[Math.floor(Math.random() * works.length)];
 
@@ -24,6 +36,7 @@ module.exports = {
 			path: `users/${interaction.user.id}/economy`,
 			params: {
 				money: actualMoney + moneyEarned,
+				lastWork: getTime(),
 			},
 		});
 
