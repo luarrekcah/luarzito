@@ -26,7 +26,7 @@ module.exports = {
 		});
 
 		return interaction.reply({
-			content: `Você ganhou ${moneyEarned} como ${randomWork}`,
+			content: `Você ganhou L$${moneyEarned} (Lennies) como ${randomWork}`,
 		});
 	},
 };
