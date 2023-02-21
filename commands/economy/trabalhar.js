@@ -11,16 +11,16 @@ module.exports = {
 		),
 	async execute(interaction) {
 
-		const lastWorkCheck = await getItems({ path: `users/${interaction.user.id}/economy/lastWork` });
+		const lastWorkCheck = (await getItems({ path: `users/${interaction.user.id}/economy/lastWork` })) || '2023-01-01T00:01:00+00:00';
 
-		if (lastWorkCheck) {
-			const lastUse = compareTime(lastWorkCheck);
-			if (lastUse.asHours() <= 3.0) {
-				return interaction.reply({
-					content: `Você precisa esperar no mínimo 3 horas para poder trabalhar de novo! Falta ${timeLeft(lastWorkCheck)} `,
-				});
-			}
+		// if (lastWorkCheck) {
+		const lastUse = compareTime(lastWorkCheck);
+		if (lastUse.asHours() <= 3.0) {
+			return interaction.reply({
+				content: `Você precisa esperar no mínimo 3 horas para poder trabalhar de novo! Falta ${timeLeft(lastWorkCheck)} `,
+			});
 		}
+		// }
 
 		const randomWork = works[Math.floor(Math.random() * works.length)];
 
