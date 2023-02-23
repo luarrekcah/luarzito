@@ -25,6 +25,11 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
 
+		await interaction.reply({
+			content: '<a:alerta:758339902386733098><a:alerta:758339902386733098><a:alerta:758339902386733098>',
+			fetchReply: true,
+		});
+
 		if (message === 'reset') {
 			updateItem({
 				path: 'chatbot',
@@ -33,7 +38,7 @@ module.exports = {
 				},
 			});
 
-			await interaction.reply({
+			await interaction.editReply({
 				content: 'Bot resetado.',
 				fetchReply: true,
 			});
@@ -42,11 +47,6 @@ module.exports = {
 		try {
 			const modelName = 'text-davinci-003';
 			const stopSequences = ['Human:', 'Luarzito:'];
-
-			await interaction.reply({
-				content: 'Pensando...',
-				fetchReply: true,
-			});
 
 			let oldMessages = (await getItems({ path: 'chatbot/text' })) || '';
 
