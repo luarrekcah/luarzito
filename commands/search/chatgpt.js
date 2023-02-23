@@ -25,6 +25,10 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
 
+		return await interaction.reply({
+			content: 'Comando temporariamente indisponível.',
+		});
+
 		await interaction.reply({
 			content: '<a:alerta:758339902386733098> <a:alerta:758339902386733098> <a:alerta:758339902386733098>',
 			fetchReply: true,

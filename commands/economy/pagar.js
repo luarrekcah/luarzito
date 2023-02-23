@@ -29,10 +29,10 @@ module.exports = {
 			});
 		}
 
-		const moneyDest = await getItems({ path: `users/${dest.user.id}/economy` });
-		const moneyUser = await getItems({ path: `users/${interaction.user.id}/economy` });
+		const moneyDest = await getItems({ path: `users/${dest.user.id}/economy` }) || 0;
+		const moneyUser = await getItems({ path: `users/${interaction.user.id}/economy` }) || 0;
 
-		if (moneyUser < value) {
+		if (moneyUser.money < value) {
 			return interaction.reply({
 				content: 'Você não tem dinheiro suficiente.',
 			});
