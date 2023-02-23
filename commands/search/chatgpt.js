@@ -16,7 +16,7 @@ module.exports = {
 		.setDescription(
 			'Apenas perguntas, comando integrado ao ChatGPT-3 da openia.',
 		)
-		.addStringOption((option) =>
+		.addStringOption(option =>
 			option
 				.setName('mensagem')
 				.setDescription('Mensagem para o bot')
@@ -29,7 +29,8 @@ module.exports = {
 			content: 'Comando temporariamente indisponível.',
 		});
 
-		await interaction.reply({
+
+		const replyMessage = await interaction.reply({
 			content: '<a:alerta:758339902386733098> <a:alerta:758339902386733098> <a:alerta:758339902386733098>',
 			fetchReply: true,
 		});
@@ -42,7 +43,7 @@ module.exports = {
 				},
 			});
 
-			await interaction.editReply({
+			return replyMessage.edit({
 				content: 'Bot resetado.',
 				fetchReply: true,
 			});
@@ -81,27 +82,24 @@ module.exports = {
 				},
 			});
 
-			const reply = completion.data.choices[0].text.trim();
-			let cleanedReply = reply.replaceAll(
-				/(Robot:|Robô:|Bot:|Computer:)/gi,
-				'',
-			);
+			let reply = completion.data.choices[0].text.trim();
+			reply = reply.replaceAll(/(Robot:|Robô:|Bot:|Computer:)/gi, '');
 
 			const regex = /^[a-z].*$/m;
-			const match = cleanedReply.match(regex);
+			const match = reply.match(regex);
 			if (match) {
-				cleanedReply = cleanedReply.replace(match[0], '');
+				reply = reply.replace(match[0], '');
 			}
 
-			await interaction.editReply({
-				content: cleanedReply,
+			return replyMessage.edit({
+				content: reply,
 			});
 		}
 		catch (error) {
 			console.error(error);
-			await interaction.reply({
+			return interaction.reply({
 				content:
-          'Desculpe, algo deu errado. Por favor, tente novamente mais tarde.',
+					'Desculpe, algo deu errado. Por favor, tente novamente mais tarde.',
 				ephemeral: true,
 			});
 		}
