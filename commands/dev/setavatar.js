@@ -12,7 +12,6 @@ module.exports = {
 				.addChoices(
 					{ name: 'normal', value: 'normal' },
 					{ name: 'manutencao', value: 'manutencao' },
-					{ name: 'desenvolvimento', value: 'desenvolvimento' },
 				)),
 	async execute(interaction) {
 		const opt = interaction.options.getString('avatar');
