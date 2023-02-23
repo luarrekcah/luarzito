@@ -26,6 +26,7 @@ module.exports = {
 		switch (opt) {
 		case 'normal':
 			await client.user.setAvatar(config.botConfig.avatarsTheme.default);
+			await client.user.setStatus('online');
 			interaction.reply({
 				content: 'Avatar normal setado.',
 				ephemeral: true,
@@ -33,6 +34,7 @@ module.exports = {
 			break;
 		case 'manutencao':
 			await client.user.setAvatar(config.botConfig.avatarsTheme.manutencao);
+			await client.user.setStatus('dnd');
 			interaction.reply({
 				content: 'Avatar manutenção setado.',
 				ephemeral: true,
