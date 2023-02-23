@@ -32,6 +32,12 @@ module.exports = {
 		const moneyDest = await getItems({ path: `users/${dest.user.id}/economy` });
 		const moneyUser = await getItems({ path: `users/${interaction.user.id}/economy` });
 
+		if (moneyUser < value) {
+			return interaction.reply({
+				content: 'Você não tem dinheiro suficiente.',
+			});
+		}
+
 		updateItem({
 			path: `users/${dest.user.id}/economy`,
 			params: {
