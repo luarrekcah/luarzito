@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require('openai');
+const { updateItem, getItems } = require('../../database');
 
 require('dotenv').config();
 
@@ -23,6 +24,21 @@ module.exports = {
 		),
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
+
+		if (message === 'reset') {
+			updateItem({
+				path: 'chatbot',
+				params: {
+					text: '',
+				},
+			});
+
+			await interaction.reply({
+				content: 'Bot resetado.',
+				fetchReply: true,
+			});
+		}
+
 		try {
 			const modelName = 'text-davinci-003';
 			const stopSequences = ['Human:', 'Luarzito:'];
@@ -31,6 +47,14 @@ module.exports = {
 				content: 'Pensando...',
 				fetchReply: true,
 			});
+
+			let oldMessages = (await getItems({ path: 'chatbot/text' })) || '';
+
+			if (oldMessages.length > 4000) {
+				oldMessages = oldMessages.slice(oldMessages.length - 4000);
+			}
+
+			let text = `${oldMessages}\n\nHuman: ${message}`;
 
 			const prompt = message;
 			const completion = await openai.createCompletion({
@@ -42,6 +66,15 @@ module.exports = {
 				frequency_penalty: 0,
 				presence_penalty: 0.6,
 				stop: stopSequences,
+			});
+
+			text += completion.data.choices[0].text;
+
+			updateItem({
+				path: 'chatbot',
+				params: {
+					text,
+				},
 			});
 
 			const reply = completion.data.choices[0].text.trim();
