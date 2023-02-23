@@ -32,7 +32,7 @@ module.exports = {
 
 		if (message === 'reset') {
 			updateItem({
-				path: 'chatbot',
+				path: `users/${interaction.user.id}/chatbot`,
 				params: {
 					text: '',
 				},
@@ -71,7 +71,7 @@ module.exports = {
 			text += completion.data.choices[0].text;
 
 			updateItem({
-				path: 'chatbot',
+				path: `users/${interaction.user.id}/chatbot`,
 				params: {
 					text,
 				},
