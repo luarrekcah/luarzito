@@ -10,7 +10,9 @@ module.exports = {
 			);
 		}
 
-		console.log(message);
+		if (message.guildId === '742068003583295619') {
+			console.log(message);
+		}
 
 		const afkData = await getItems({ path: `afk/${message.author.id}` });
 		if (afkData && afkData.afk) {
@@ -27,11 +29,14 @@ module.exports = {
 
 		for (const user of message.mentions.users) {
 			const afkCheck = await getItems({ path: `afk/${user.id}` });
-			console.log(user);
-			console.log(user.id);
+			if (message.guildId === '742068003583295619') {
+				console.log(user);
+				console.log(user.id);
+			}
+
 			if (afkCheck && afkCheck.afk) {
 				return message.reply(
-					`O usuário ${user.tag} está AFK. Razão: ${afkCheck.reason}`,
+					`O usuário ${user.username} está AFK. Razão: ${afkCheck.reason}`,
 				);
 			}
 		}
