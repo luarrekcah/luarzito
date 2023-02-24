@@ -25,7 +25,7 @@ module.exports = {
 			return message.reply('Seu AFK foi desativado devido sua atividade.');
 		}
 
-		for (const user of message.mentions.users.cache.values()) {
+		for (const user of message.mentions.users) {
 			const afkCheck = await getItems({ path: `afk/${user.id}` });
 			console.log(user);
 			console.log(user.id);
