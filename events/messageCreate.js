@@ -10,6 +10,8 @@ module.exports = {
 			);
 		}
 
+		console.log(message);
+
 		const afkData = await getItems({ path: `afk/${message.author.id}` });
 		if (afkData && afkData.afk) {
 			updateItem({
