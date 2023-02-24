@@ -26,10 +26,13 @@ module.exports = {
 		for (let index = 0; index < message.mentions.users.length; index++) {
 			const user = message.mentions.users[index];
 
-			const afkCheck = await getItems({ path: `afk/${user.id}` });
+			const afkCheck = await getItems({ path: `afk/${user.user.id}` });
+
+			console.log(user);
+			console.log(user.user.id);
 
 			if (afkCheck && afkCheck.afk) {
-				return message.reply(`O usuários ${user.tag} está AFK. Razão: ${afkCheck.reason}`);
+				return message.reply(`O usuários ${user.user.tag} está AFK. Razão: ${afkCheck.reason}`);
 			}
 		}
 	},
