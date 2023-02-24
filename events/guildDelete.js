@@ -5,6 +5,7 @@ const config = require('../config.json'),
 module.exports = {
 	name: 'guildDelete',
 	async execute(guild) {
+		if (guild.name == undefined) return;
 		const { client } = guild;
 		const channel = await client.channels.cache.get(config.logsChannel.guildsLogId);
 		const aviso = new EmbedBuilder()
