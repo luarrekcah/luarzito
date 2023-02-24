@@ -9,7 +9,7 @@ module.exports = {
 				.setName('ativar')
 				.setDescription('Ative seu afk')
 				.addStringOption((option) =>
-					option.setName('reason').setDescription('Razão do AFK'),
+					option.setName('reason').setDescription('Razão do AFK').setRequired(true),
 				),
 		)
 		.addSubcommand((subcommand) =>
