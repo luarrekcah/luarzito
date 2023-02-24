@@ -9,14 +9,14 @@ module.exports = {
 				.setName('ativar')
 				.setDescription('Ative seu afk')
 				.addStringOption((option) =>
-					option.setName('reason').setDescription('Razão do AFK').setRequired(true),
+					option.setName('razao').setDescription('Razão do AFK').setRequired(true),
 				),
 		)
 		.addSubcommand((subcommand) =>
 			subcommand.setName('desativar').setDescription('Desative seu afk'),
 		),
 	async execute(interaction) {
-		const reason = interaction.options.getString('reason');
+		const reason = interaction.options.getString('razao');
 		const subcomando = interaction.options.getSubcommand();
 		switch (subcomando) {
 		case 'ativar':
