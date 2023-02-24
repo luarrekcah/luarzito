@@ -29,6 +29,7 @@ module.exports = {
 			});
 			return interaction.reply({
 				content: `Seu AFK foi ativo com a razão: ${reason}`,
+				ephemeral: true,
 			});
 		case 'desativar':
 			updateItem({
@@ -40,6 +41,7 @@ module.exports = {
 			});
 			return interaction.reply({
 				content: 'Seu AFK foi desativado',
+				ephemeral: true,
 			});
 		}
 	},
