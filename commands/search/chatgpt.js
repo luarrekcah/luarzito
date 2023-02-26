@@ -16,7 +16,7 @@ module.exports = {
 		.setDescription(
 			'Apenas perguntas, comando integrado ao ChatGPT-3 da openia.',
 		)
-		.addStringOption(option =>
+		.addStringOption((option) =>
 			option
 				.setName('mensagem')
 				.setDescription('Mensagem para o bot')
@@ -25,13 +25,14 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
 
-		/*return await interaction.reply({
-			content: 'Comando temporariamente indisponível.',
-		});*/
-
+		return await interaction.reply({
+			content:
+        'Comando temporariamente indisponível. A API consumida pelo Luarzito está com algumas limitações, entre no servidor para ficar por dentro das novidades e saber quando o comando vai ser liberado novamente!',
+		});
 
 		const replyMessage = await interaction.reply({
-			content: 'Pensando... <a:alerta:758339902386733098> <a:alerta:758339902386733098> <a:alerta:758339902386733098>',
+			content:
+        'Pensando... <a:alerta:758339902386733098> <a:alerta:758339902386733098> <a:alerta:758339902386733098>',
 			fetchReply: true,
 		});
 
@@ -99,7 +100,7 @@ module.exports = {
 			console.error(error);
 			return interaction.reply({
 				content:
-					'Desculpe, algo deu errado. Por favor, tente novamente mais tarde.',
+          'Desculpe, algo deu errado. Por favor, tente novamente mais tarde.',
 				ephemeral: true,
 			});
 		}
