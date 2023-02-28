@@ -74,7 +74,7 @@ module.exports = {
 				stop: stopSequences,
 			});
 
-			text += 'Luarzito: ' + completion.data.choices[0].text;
+			text += ' Luarzito: ' + completion.data.choices[0].text;
 
 			updateItem({
 				path: `users/${interaction.user.id}/chatbot`,
