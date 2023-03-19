@@ -47,6 +47,12 @@ module.exports = {
 					.setLabel('Votar')
 					.setStyle(ButtonStyle.Link)
 					.setURL(config.links.topGG),
+			)
+			.addComponents(
+				new ButtonBuilder()
+					.setLabel('API')
+					.setStyle(ButtonStyle.Link)
+					.setURL('https://lzbot.devluar.com'),
 			);
 		return interaction.reply({ embeds: [embed], components: [row] });
 	},
