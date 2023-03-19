@@ -85,11 +85,11 @@ module.exports = {
 				},
 				{
 					name: 'Criado em:',
-					value: `${moment.utc(guild.createdAt).format('LLL') + ' - ' + moment.utc(guild.createdAt).fromNow()}`,
+					value: `<t:${user.createdAt}:R>`,
 				},
 				{
 					name: 'Entrei aqui em:',
-					value: `${moment.utc(guild.joinedTimestamp).format('LLL') + ' - ' + moment.utc(guild.joinedTimestamp).fromNow()}`,
+					value: `<t:${user.joinedTimestamp}:R>`,
 				},
 			);
 
@@ -108,11 +108,11 @@ module.exports = {
 			.addFields(
 				{
 					name: 'Criado em:',
-					value: `${moment.utc(user.createdAt).format('LLL') + ' - ' + moment.utc(user.createdAt).fromNow()}`,
+					value: `<t:${user.createdAt}:R>`,
 				},
 				{
 					name: 'Entrei aqui em:',
-					value: `${moment.utc(user.joinedAt).format('LLL') + ' - ' + moment.utc(user.joinedAt).fromNow()}`,
+					value: `<t:${user.joinedAt}:R>`,
 				},
 			);
 
