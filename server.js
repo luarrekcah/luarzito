@@ -2,14 +2,7 @@ const express = require('express'),
 	app = express(),
 	path = require('path');
 
-app.get('/', function(req, res) {
-	res.sendStatus(200);
-	const ping = new Date();
-	ping.setHours(ping.getHours() - 3);
-	console.log(
-		`Ping recebido às ${ping.getUTCHours()}:${ping.getUTCMinutes()}:${ping.getUTCSeconds()}`,
-	);
-});
+require('./routes')(app);
 
 require(__dirname + '/bot.js');
 require(__dirname + '/database/init.js');

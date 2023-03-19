@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Configuration, OpenAIApi } = require('openai');
 const { updateItem, getItems } = require('../../database');
