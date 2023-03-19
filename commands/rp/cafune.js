@@ -36,7 +36,7 @@ module.exports = {
 			},
 		});
 
-		const gif = fetch('https://kawaii.red/api/gif/pat/token=anonymous/').then(
+		const gif = fetch('https://lzbot.devluar.com/api/v1/anime/gif/pat').then(
 			(response) => {
 				return response.json();
 			},

@@ -24,7 +24,8 @@
     "openai": "^3.1.0",
     "pagination.djs": "^4.0.3",
     "path": "^0.12.7",
-    "prom-client": "^14.2.0"
+    "prom-client": "^14.2.0",
+    "prometheus-api-metrics": "^3.2.2"
   },
   "engines": {
     "node": "18"

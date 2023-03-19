@@ -3,6 +3,9 @@ const express = require('express'),
 	path = require('path'),
 	cors = require('cors');
 
+const prometheusApiMetrics = require('prometheus-api-metrics');
+
+app.use(prometheusApiMetrics());
 app.use(cors());
 
 require('./routes')(app);
