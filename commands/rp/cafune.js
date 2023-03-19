@@ -22,6 +22,12 @@ module.exports = {
 			});
 		}
 
+		if (user.user.bot) {
+			return interaction.reply({
+				content: 'Você não pode interagir com um bot.',
+			});
+		}
+
 		const friendshipID = Number(user.user.id) + Number(interaction.user.id);
 
 		const randomPoints = Math.floor(Math.random() * (260 - 60 + 1)) + 60;
