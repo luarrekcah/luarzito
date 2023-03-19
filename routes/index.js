@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/metrics', (req, res) => {
 	res.setHeader('Content-Type', Prometheus.register.contentType);
-	res.end(Prometheus.register.metrics());
+	res.end(JSON.stringify(Prometheus.register.getMetricsAsJSON()));
 });
 
 
