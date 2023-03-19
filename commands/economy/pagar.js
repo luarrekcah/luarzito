@@ -5,6 +5,7 @@ const ERROR_MESSAGES = {
 	NOT_ENOUGH_MONEY: 'Você não tem dinheiro suficiente.',
 	INVALID_AMOUNT: 'Digite um valor válido.',
 	SAME_USER: 'Você não pode movimentar dinheiro a si mesmo.',
+	BOT: 'Você não pode enviar dinheiro para um bot!',
 };
 
 module.exports = {
@@ -36,6 +37,12 @@ module.exports = {
 		if (dest.user.id === interaction.user.id) {
 			return interaction.reply({
 				content: ERROR_MESSAGES.SAME_USER,
+			});
+		}
+
+		if (dest.user.bot) {
+			return interaction.reply({
+				content: ERROR_MESSAGES.BOT,
 			});
 		}
 
