@@ -25,10 +25,10 @@ module.exports = {
 	async execute(interaction) {
 		const message = interaction.options.getString('mensagem');
 
-		/*return await interaction.reply({
+		return await interaction.reply({
 			content:
         'Comando temporariamente indisponível. A API consumida pelo Luarzito está com algumas limitações, entre no servidor para ficar por dentro das novidades e saber quando o comando vai ser liberado novamente!',
-		});*/
+		});
 
 		const replyMessage = await interaction.reply({
 			content:
