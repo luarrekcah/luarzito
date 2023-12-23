@@ -2,12 +2,12 @@ const { SlashCommandBuilder } = require('discord.js');
 const { Configuration, OpenAIApi } = require('openai');
 
 require('dotenv').config();
-
+/*
 const configuration = new Configuration({
 	apiKey: process.env.OPENAI_API_KEY,
 });
 
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration);*/
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -23,10 +23,11 @@ module.exports = {
 		const prompt = interaction.options.getString('desc');
 
 		await interaction.reply({
-			content: 'Isso parece interessante...',
+			content: 'Comando desativado.',
 			fetchReply: true,
 		});
 
+		return;
 
 		const response = await openai.createImage({
 			prompt,
@@ -44,7 +45,5 @@ module.exports = {
 				content: 'Ok... Algo deu errado...',
 			});
 		}
-
-
 	},
 };
