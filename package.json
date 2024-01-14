@@ -12,20 +12,18 @@
   "dependencies": {
     "@firebase/app": "^0.9.25",
     "@firebase/database": "^1.0.2",
-    "axios": "^1.6.2",
+    "axios": "^1.6.5",
     "canvas": "^2.11.2",
     "cors": "^2.8.5",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "g-i-s": "^2.1.7",
-    "moment": "^2.29.4",
+    "moment": "^2.30.1",
     "node-reverse-image-search": "^1.0.2",
-    "openai": "^4.24.1",
-    "pagination.djs": "^4.0.12",
-    "path": "^0.12.7",
-    "prom-client": "^15.1.0",
-    "prometheus-api-metrics": "^3.2.2"
+    "openai": "^4.24.7",
+    "pagination.djs": "^4.0.13",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": "18"
