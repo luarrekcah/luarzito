@@ -10,7 +10,7 @@
     "deployDelete": "node deploy/delete.js"
   },
   "dependencies": {
-    "@firebase/app": "^0.9.25",
+    "@firebase/app": "^0.10.0",
     "@firebase/database": "^1.0.2",
     "axios": "^1.6.5",
     "canvas": "^2.11.2",
