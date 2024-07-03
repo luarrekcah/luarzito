@@ -40,7 +40,7 @@ module.exports = {
 
 		reverseImageSearch(link, results => {
 			if (results.length < 1) {
-				return interaction.reply({
+				return interaction.followUp({
 					content: 'Não encontrei nenhum resultado, tente com outra foto :/',
 					ephemeral: true,
 				});

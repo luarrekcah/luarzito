@@ -27,18 +27,14 @@ module.exports = {
 			return message.reply('Seu AFK foi desativado devido sua atividade.');
 		}
 
-		for (const user of message.mentions.users) {
+		message.mentions.users.forEach(async (user) => {
 			const afkCheck = await getItems({ path: `afk/${user.id}` });
-			if (message.guildId === '742068003583295619') {
-				console.log(user);
-				console.log(user.id);
-			}
 
 			if (afkCheck && afkCheck.afk) {
 				return message.reply(
 					`O usuário ${user.username} está AFK. Razão: ${afkCheck.reason}`,
 				);
 			}
-		}
+		});
 	},
 };
