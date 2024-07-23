@@ -11,7 +11,7 @@ module.exports = {
 		});
 
 		return interaction.reply({
-			content: `Você tem L$${Number(money)} no banco.`,
+			content: `Você tem L$${Number(money || 0)} no banco.`,
 		});
 	},
 };

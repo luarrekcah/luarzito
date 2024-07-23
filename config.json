@@ -1,6 +1,5 @@
 {
   "botConfig": {
-    "development": false,
     "avatarsTheme": {
       "default": "https://cdn.discordapp.com/avatars/743841329334845530/24bee880eb89782b8e466870cf4549e1.webp?size=1024",
       "halloween": "https://cdn.discordapp.com/attachments/747517760589922305/1034220671686955088/pfp.jpg",

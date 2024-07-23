@@ -1,10 +1,43 @@
-const config = require('../config.json'),
-	{ EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, Collection } = require('discord.js');
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		const { client } = interaction;
+		const { cooldowns } = client;
+
+		if (!cooldowns.has(interaction.commandName)) {
+			cooldowns.set(interaction.commandName, new Collection());
+		}
+
+		const now = Date.now();
+		const timestamps = cooldowns.get(interaction.commandName);
+		const defaultCooldownDuration = 10;
+		const cooldownAmount =
+      (interaction.cooldown ?? defaultCooldownDuration) * 1_000;
+
+		if (timestamps.has(interaction.user.id)) {
+			const expirationTime =
+        timestamps.get(interaction.user.id) + cooldownAmount;
+
+			if (now < expirationTime) {
+				const expiredTimestamp = Math.round(expirationTime / 1_000);
+				return interaction.reply({
+					content: `Por favor aguarde o tempo mínimo de interação para \`${interaction.commandName}\`. Você pode usa-lo de novo em <t:${expiredTimestamp}:R>.`,
+					ephemeral: true,
+				});
+			}
+		}
+
+		timestamps.set(interaction.user.id, now);
+		setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+
+		if (process.env.NODE_ENV !== 'production' && interaction.user.id !== client.config.botConfig.devId) {
+			return interaction.reply({
+				content: 'Oi! Eu sei que é um pouco chato mas estou em manutenção agora.',
+				ephemeral: true,
+			});
+		}
 
 		if (interaction.isButton()) {
 			console.log(interaction);
@@ -16,8 +49,15 @@ module.exports = {
 
 			const opts = interaction.options.data.map((option) => option.value);
 
-			const logChannel = client.channels.cache.get(config.logsChannel.slashLogId);
-			if (!logChannel) return console.error(`Log channel not found: ${config.logsChannel.slashLogId}`);
+			const logChannel = client.channels.cache.get(
+				client.config.logsChannel.slashLogId,
+			);
+
+			if (!logChannel) {
+				return console.error(
+					`Log channel not found: ${client.config.logsChannel.slashLogId}`,
+				);
+			}
 
 			const fields = [
 				{
@@ -47,7 +87,7 @@ module.exports = {
 				},
 			];
 			const embed = new EmbedBuilder()
-				.setColor(config.botConfig.themeColor)
+				.setColor(client.config.botConfig.themeColor)
 				.setThumbnail(
 					interaction.guild.iconURL({
 						dynamic: true,
@@ -58,10 +98,9 @@ module.exports = {
 				.setDescription('Log de Comandos')
 				.addFields(fields);
 
-			logChannel.send({ embeds: [embed] })
-				.catch((error) => {
-					console.error(`Error sending interaction log: ${error}`);
-				});
+			logChannel.send({ embeds: [embed] }).catch((error) => {
+				console.error(`Error sending interaction log: ${error}`);
+			});
 
 			if (!interaction.isCommand()) return;
 

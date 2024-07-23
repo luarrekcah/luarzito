@@ -1,11 +1,10 @@
-const { ActivityType } = require('discord.js'),
-	config = require('../config.json');
+const { ActivityType } = require('discord.js');
 
 module.exports = {
 	name: 'ready',
 	once: true,
 	async execute(client) {
-		if (!config.botConfig.development) {
+		if (process.env.NODE_ENV !== 'production') {
 			const channel = await client.channels.cache.get('792377178834337882');
 
 			const channel_Privado = await client.channels.cache.get(
@@ -21,9 +20,15 @@ module.exports = {
 
 		const atividades = [
 			['Tem alguma ideia? Use o comando /sugestao!', ActivityType.Competing],
-			['Heeey, ainda não entrou no meu servidor? Use o comando /ajuda para entrar!', ActivityType.Watching],
+			[
+				'Heeey, ainda não entrou no meu servidor? Use o comando /ajuda para entrar!',
+				ActivityType.Watching,
+			],
 			['Acesse luarzito.devluar.com', ActivityType.Competing],
-			['Obrigado por ainda me utilizar, meu desenvolvedor anda bem ocupado sabe! Mas vai dar tudo certo :)', ActivityType.Watching],
+			[
+				'Obrigado por ainda me utilizar, meu desenvolvedor anda bem ocupado sabe! Mas vai dar tudo certo :)',
+				ActivityType.Watching,
+			],
 		];
 
 		setInterval(async () => {
