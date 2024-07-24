@@ -7,13 +7,14 @@ const passport = require("passport");
 const httpStatus = require("http-status");
 const config = require("./config");
 const morgan = require("./config/morgan");
-// const { jwtStrategy } = require("./config/passport");
 const { authLimiter } = require("./middlewares/rateLimiter");
 const routes = require("./routes");
 const { errorConverter, errorHandler } = require("./middlewares/error");
 const ApiError = require("./utils/ApiError");
 const i18n = require('i18n-express');
 const path = require("path");
+const cookieParser = require('cookie-parser');
+const session = require("express-session");
 
 const app = express();
 
@@ -24,7 +25,7 @@ if (config.env !== "test") {
 
 app.use(i18n({
   translationsPath: path.join(__dirname, 'i18n'),
-  siteLangs: ["pt"],
+  siteLangs: ["pt", "en"],
   textsVarName: 'translation'
 }));
 
@@ -32,8 +33,10 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
 
+app.use(cookieParser());
+
 // set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
 
 // parse json request body
 app.use(express.json());
@@ -51,9 +54,21 @@ app.use(compression());
 app.use(cors());
 app.options("*", cors());
 
-// jwt authentication
-/**app.use(passport.initialize());
-passport.use("jwt", jwtStrategy); */
+// authentication
+app.use(
+  session({
+    secret: config.oauth.secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 10800000,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./auth/discord.strategy");
 
 // limit repeated failed requests to auth endpoints
 if (config.env === "production") {

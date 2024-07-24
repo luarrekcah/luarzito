@@ -41,6 +41,14 @@ module.exports = {
     appId: envVars.appId,
   },
   bot: {
+    client_id: envVars.CLIENT_ID,
     token: envVars.TOKEN
+  },
+  oauth: {
+    secret: envVars.COOKIE_SECRET,
+    discord: {
+      id: envVars.CLIENT_ID,
+      secret: envVars.DISCORD_AUTH_CLIENT_SECRET
+    }
   }
 };

@@ -16,6 +16,7 @@
     "axios": "^1.7.2",
     "canvas": "^2.11.2",
     "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "discord.js": "^14.15.3",
@@ -23,6 +24,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
     "g-i-s": "^2.1.7",
     "helmet": "^7.1.0",
     "http-status": "^1.7.4",
@@ -35,6 +37,7 @@
     "openai": "^4.53.0",
     "pagination.djs": "^4.0.15",
     "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
     "path": "^0.12.7",
     "winston": "^3.13.1",
     "xss-clean": "^0.1.4"

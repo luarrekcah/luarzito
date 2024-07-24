@@ -1,0 +1,24 @@
+{
+    "langInfo": {
+      "name": "English",
+      "icon": "https://cdn1.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png"
+    },
+    "landing": {
+      "header": {
+        "home": "Home",
+        "commands": "Commands",
+        "policy": {
+          "title": "Policy",
+          "pop": "Privacy Policy",
+          "tos": "Terms of Service"
+        },
+        "login": "Log In"
+      },
+      "hero1": {
+        "subtitle": "Just a bot for Discord",
+        "btns": ["Add", "Support"]
+      }
+    },
+    "dashboard": {}
+  }
+  

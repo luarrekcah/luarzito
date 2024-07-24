@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Luarzito</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <img src="/images/logo.png" alt="" srcset="">
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item is-selected" href="/#">
+                    <%=translation.landing.header.home%>
+                </a>
+
+                <a class="navbar-item" href="/comandos">
+                    <%=translation.landing.header.commands%>
+                </a>
+
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <%=translation.landing.header.policy.title%>
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item">
+                            <%=translation.landing.header.policy.pop%>
+                        </a>
+                        <a class="navbar-item">
+                            <%=translation.landing.header.policy.tos%>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable lang-dropdown">
+                    <a class="navbar-link is-arrowless">
+                        <img src="<%=translation.langInfo.icon%>" alt="<%=translation.langInfo.name%>"
+                            class="lang-icon">
+                    </a>
+                    <div class="navbar-dropdown is-boxed is-right">
+                        <!-- Current Language (Top Item) -->
+                        <a class="navbar-item" href="/?clang=pt">
+                            <img src="https://cdn1.iconfinder.com/data/icons/ensign-11/512/38_Ensign_Flag_Nation_brazil-256.png"
+                                alt="Portuguese" class="lang-icon">
+                            <span class="lang-text">Português</span>
+                        </a>
+                        <!-- Other Languages -->
+                        <a class="navbar-item" href="/?clang=en">
+                            <img src="https://cdn1.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png"
+                                alt="English" class="lang-icon">
+                            <span class="lang-text">English</span>
+                        </a>
+                        <!-- Add more language options here if needed -->
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-dark" href="/auth/discord">
+                            <%=translation.landing.header.login%>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    </nav>

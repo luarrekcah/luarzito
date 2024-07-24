@@ -1,0 +1,46 @@
+<%- include("../../partials/header.ejs") %>
+
+    <section class="section">
+        <div class="container is-center center">
+            <table class="table is-bordered">
+                <thead>
+                    <tr>
+
+                        <th>Categoria</th>
+                        <th>Comando</th>
+                        <th>Descrição</th>
+                        <th>Parâmetros</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% commands.forEach((command)=> { %>
+                        <% if(command.data.description==='Desenvolvedor apenas' ) return; %>
+                            <tr>
+                                <td>Não definido</td>
+                                <td>
+                                    <code><%= command.data.name %></code>
+                                </td>
+                                <td>
+                                    <%= command.data.description %>
+                                </td>
+                                <td>
+                                    <% if (command.data.options && command.data.options.length> 0) { %>
+                                        <ul>
+                                            <% command.data.options.forEach((option)=> { %>
+                                                <li><code><%= option.name %> (Type: <%= option.type %>, Required: <%= option.required %>)</code>
+                                                </li>
+                                                <% }) %>
+                                        </ul>
+                                        <% } else { %>
+                                            Sem opções
+                                            <% } %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <%- include("../../partials/footer.ejs") %>

@@ -1,1 +1,23 @@
-{}
+{
+  "langInfo": {
+    "name": "Português",
+    "icon": "https://cdn1.iconfinder.com/data/icons/ensign-11/512/38_Ensign_Flag_Nation_brazil-256.png"
+  },
+  "landing": {
+    "header": {
+      "home": "Home",
+      "commands": "Comandos",
+      "policy": {
+        "title": "Política",
+        "pop": "Política de Privacidade",
+        "tos": "Termos de Uso"
+      },
+      "login": "Entrar"
+    },
+    "hero1": {
+      "subtitle": "Apenas um bot para o Discord",
+      "btns": ["Adicionar", "Suporte"]
+    }
+  },
+  "dashboard": {}
+}

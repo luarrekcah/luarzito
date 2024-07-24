@@ -1,11 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Hello world!
-</body>
-</html>
+<%- include("../../partials/header.ejs") %>
+    <section class="hero is-dark">
+        <div class="hero-body">
+            <p class="title">Luarzito</p>
+            <p class="subtitle">
+                <%=translation.landing.hero1.subtitle%>
+            </p>
+            <div class="buttons are-medium">
+                <a class="button"
+                    href="https://discord.com/api/oauth2/authorize?client_id=743841329334845530&permissions=2339952782455&scope=bot%20applications.commands">
+                    <%=translation.landing.hero1.btns[0]%>
+                </a>
+                <a class="button" href="https://discord.gg/Y78M6uvJUk?utm_source=website">
+                    <%=translation.landing.hero1.btns[1]%>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Servidores</p>
+                    <p class="title">3,456</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Usuários</p>
+
+                    <p class="title">456K</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Comandos</p>
+                    <p class="title">120</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Cafés</p>
+                    <p class="title">789</p>
+                </div>
+            </div>
+            </nav>
+    </section>
+    <%- include("../../partials/footer.ejs") %>
