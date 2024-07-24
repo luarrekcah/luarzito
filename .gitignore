@@ -1,5 +1,44 @@
-node_modules
+# Node modules directory
+node_modules/
+
+# Environment variables files
 .env
+.env.*
+
+# Lock files
 yarn.lock
 package-lock.json
+
+# Log files
+yarn-error.log
+
+# Build and output directories
+dist/
+build/
+
+# Compiled files
+*.log
+
+# Archives
 Luarzito-2.0.0.zip
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional coverage directory used by testing tools
+coverage/
+
+# Temporary files
+tmp/
+temp/
