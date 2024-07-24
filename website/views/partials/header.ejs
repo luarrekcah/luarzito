@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Luarzito</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
@@ -74,11 +75,34 @@
                     </div>
                 </div>
                 <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-dark" href="/auth/discord">
-                            <%=translation.landing.header.login%>
-                        </a>
-                    </div>
+                    <% if(user) { %>
+                        <div class="navbar-item has-dropdown is-hoverable">
+
+
+                            <figure class="image is-32x32">
+                                <img class="is-rounded"
+                                    src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=1024" />
+                            </figure>
+                            <div class="navbar-dropdown is-boxed is-right">
+                                <a class="navbar-item" href="/auth/logout">
+                                    <span class="icon">
+                                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    </span>
+
+                                    Sair
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <% } else {%>
+                            <div class="buttons">
+                                <a class="button is-dark" href="/auth/discord">
+                                    <%=translation.landing.header.login%>
+                                </a>
+                            </div>
+                            <% } %>
+
                 </div>
             </div>
     </nav>

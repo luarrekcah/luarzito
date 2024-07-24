@@ -65,6 +65,7 @@ app.use(
     },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -80,7 +81,8 @@ app.use("/", routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
+  // next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
+  res.sendStatus(404)
 });
 
 // convert error to ApiError, if needed

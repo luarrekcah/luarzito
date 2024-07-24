@@ -5,6 +5,7 @@ const router = express.Router();
 // Default
 const indexRoute = require("./default/index.route");
 const authRoute = require("./default/auth.route");
+const dashboardRoute = require("./default/dashboard.route");
 // API
 // const apiRoute = require("./api/api.route");
 // DEV
@@ -18,6 +19,10 @@ const defaultRoutes = [
   {
     path: "/auth",
     route: authRoute,
+  },
+  {
+    path: "/dashboard",
+    route: dashboardRoute,
   },
 ];/*
 
