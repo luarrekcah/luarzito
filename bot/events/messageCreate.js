@@ -1,3 +1,4 @@
+const { PermissionsBitField } = require('discord.js');
 const { getItems, updateItem } = require('../../shared/database');
 
 module.exports = {
@@ -10,10 +11,6 @@ module.exports = {
 			);
 		}
 
-		if (message.guildId === '742068003583295619') {
-			console.log(message);
-		}
-
 		const afkData = await getItems({ path: `afk/${message.author.id}` });
 		if (afkData && afkData.afk) {
 			updateItem({
@@ -24,16 +21,37 @@ module.exports = {
 				},
 			});
 
-			return message.reply('Seu AFK foi desativado devido sua atividade.');
+			return message.reply({ content: "Seu AFK foi desativado devido sua atividade.", ephemeral: true });
 		}
 
 		message.mentions.users.forEach(async (user) => {
 			const afkCheck = await getItems({ path: `afk/${user.id}` });
-
 			if (afkCheck && afkCheck.afk) {
-				return message.reply(
-					`O usuário ${user.username} está AFK. Razão: ${afkCheck.reason}`,
-				);
+				try {
+					const botPermissionsIn = message.guild.members.me.permissionsIn(message.channel);
+
+					if (botPermissionsIn.has(PermissionsBitField.Flags.ManageWebhooks)) {
+						const webhook = await message.channel.createWebhook({
+							name: user.globalName || user.username,
+							avatar: user.displayAvatarURL({ format: 'png' }),
+						});
+
+						webhook.send({
+							content: afkCheck.reason,
+						});
+
+						setTimeout(() => {
+							webhook.delete()
+						}, 5000)
+					} else {
+						return message.reply(
+							`O usuário ${user.username} está AFK. Razão: ${afkCheck.reason}`,
+						);
+					}
+				} catch (error) {
+					console.log(error)
+					return;
+				}
 			}
 		});
 	},
