@@ -4,9 +4,18 @@ const client = require('../../../bot');
 // const { userService } = require('../services');
 
 const renderDashboard = catchAsync(async (req, res) => {
+  const userGuilds = req.user.guilds;
+  const botGuilds = client.guilds.cache;
+
+  const guildsWithBotStatus = userGuilds.map(guild => {
+    const botInGuild = botGuilds.has(guild.id);
+   
+    return { ...guild, botInGuild };
+  });
+
   const data = {
     user: req.user,
-    guilds: req.user.guilds
+    guilds: guildsWithBotStatus
   }
   res.render("pages/dashboard/index", data)
 });

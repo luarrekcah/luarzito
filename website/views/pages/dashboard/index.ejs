@@ -1,39 +1,50 @@
 <%- include("../../partials/header.ejs") %>
     <section class="section ">
         <div class="columns is-multiline is-centered">
-            <% guilds.forEach((guild) => { 
+            <% guilds.forEach((guild)=> {
                 const isOwnerOrAdmin = guild.owner || guild.permissions === 2147483647;
                 if (isOwnerOrAdmin) {
-            %>
+                %>
                 <div class="column is-half">
                     <div class="box">
-                        
-            <%= guild.botInGuild %>
                         <div class="media">
                             <figure class="media-left">
-                                <% if (guild.icon) { 
-                                    const iconExtension = guild.icon.startsWith('a_') ? 'gif' : 'png'; 
-                                %>
+                                <% if (guild.icon) { const iconExtension=guild.icon.startsWith('a_') ? 'gif' : 'png' ;
+                                    %>
                                     <p class="image is-64x64">
-                                        <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.<%= iconExtension %>" alt="Guild Icon">
+                                        <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.<%= iconExtension %>"
+                                            alt="Guild Icon">
                                     </p>
-                                <% } %>
+                                    <% } %>
                             </figure>
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong><%= guild.name %></strong><br>
-                                        <small><%= guild.owner ? "DONO" : "ADMIN" %></small>
+                                        <strong>
+                                            <%= guild.name %>
+                                        </strong><br>
+                                        <small>
+                                            <%= guild.owner ? "DONO" : "ADMIN" %>
+                                        </small>
                                     </p>
                                 </div>
                             </div>
-                            <div class="media-right">
-                                <a class="button is-primary" href="/dashboard/guild/<%= guild.id %>">Configurar</a>
-                            </div>
+                            <% if(guild.botInGuild) {%>
+                                <div class="media-right">
+                                    <a class="button is-success" href="/dashboard/guild/<%= guild.id %>">Configurar</a>
+                                </div>
+                                <%} else {%>
+                                    <div class="media-right">
+                                        <a class="button is-dark" target="_blank"
+                                            href="https://discord.com/oauth2/authorize?client_id=743841329334845530">Adicionar
+                                            BOT</a>
+                                    </div>
+                                    <%} %>
+
                         </div>
                     </div>
                 </div>
-            <% } }) %>
+                <% } }) %>
         </div>
 
     </section>
