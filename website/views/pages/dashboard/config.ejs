@@ -1,0 +1,87 @@
+<%- include("../../partials/header.ejs") %>
+
+    <section class="section">
+        <div class="container is-fluid">
+            <div class="columns">
+
+                <aside class="column is-one-quarter" id="sidebar">
+                    <div class="box has-text-centered">
+                        <% if (guild.icon) { const iconExtension=guild.icon.startsWith('a_') ? 'gif' : 'png' ; %>
+                            <p class="image is-64x64 mx-auto">
+                                <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.<%= iconExtension %>"
+                                    alt="Guild Icon">
+                            </p>
+                            <% } %>
+                                <h2 class="title is-4">
+                                    <%= guild.name %>
+                                </h2>
+                    </div>
+
+
+                    <div class="box">
+                        <h2 class="title is-4">Gestão Servidor</h2>
+
+                        <!-- Categoria 1 -->
+                        <div class="content">
+                            <ul class="list-unstyled" style="list-style-type: none; padding-left: 0; margin: 0;">
+                                <li><a class="button is-small is-fullwidth is-active" href="#">Geral</a></li>
+                                <li><a class="button is-small is-fullwidth" href="#/abrova">Registro de Auditoria</a></li>
+                            </ul>
+                            <hr>
+                        </div>
+
+                        <!-- Categoria 2 -->
+                        <div class="content">
+                            <h3 class="subtitle is-5">Notificações</h3>
+                            <ul class="list-unstyled" style="list-style-type: none; padding-left: 0; margin: 0;">
+                                <li><a class="button is-small is-fullwidth" href="/option3">Entrada/Saída de Membro</a>
+                                </li>
+                                <li><a class="button is-small is-fullwidth" href="/option3">Logs</a>
+                                </li>
+                                <li><a class="button is-small is-fullwidth" href="/option3">Punições</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="content">
+                            <h3 class="subtitle is-5">Segurança</h3>
+                            <ul class="list-unstyled" style="list-style-type: none; padding-left: 0; margin: 0;">
+                                <li><a class="button is-small is-fullwidth" href="/option3">Links</a>
+                                </li>
+                                <li><a class="button is-small is-fullwidth" href="/option3">Arquivos</a>
+                                </li>
+                                <li><a class="button is-small is-fullwidth" href="/option3">Imagens</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="content">
+                            <h3 class="subtitle is-5">Diversão</h3>
+                            <ul class="list-unstyled" style="list-style-type: none; padding-left: 0; margin: 0;">
+                                <li><a class="button is-small is-fullwidth" href="/option3">Níveis</a>
+                                </li>
+                            </ul>
+                            <ul class="list-unstyled" style="list-style-type: none; padding-left: 0; margin: 0;">
+                                <li><a class="button is-small is-fullwidth" href="/option3">Comandos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                </aside>
+
+                <!-- Main content area -->
+                <div class="column is-full">
+                    <div class="columns is-multiline">
+                        <div class="section is-fluid">
+                            Em desenvolvimento!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include("../../partials/footer.ejs") %>

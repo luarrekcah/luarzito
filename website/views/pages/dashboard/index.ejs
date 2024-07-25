@@ -1,14 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("../../partials/header.ejs") %>
+    <section class="section ">
+        <div class="columns is-multiline is-centered">
+            <% guilds.forEach((guild) => { 
+                const isOwnerOrAdmin = guild.owner || guild.permissions === 2147483647;
+                if (isOwnerOrAdmin) {
+            %>
+                <div class="column is-half">
+                    <div class="box">
+                        
+            <%= guild.botInGuild %>
+                        <div class="media">
+                            <figure class="media-left">
+                                <% if (guild.icon) { 
+                                    const iconExtension = guild.icon.startsWith('a_') ? 'gif' : 'png'; 
+                                %>
+                                    <p class="image is-64x64">
+                                        <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.<%= iconExtension %>" alt="Guild Icon">
+                                    </p>
+                                <% } %>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong><%= guild.name %></strong><br>
+                                        <small><%= guild.owner ? "DONO" : "ADMIN" %></small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="media-right">
+                                <a class="button is-primary" href="/dashboard/guild/<%= guild.id %>">Configurar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } }) %>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    dashboard
-</body>
-
-</html>
+    </section>
+    <%- include("../../partials/footer.ejs") %>
