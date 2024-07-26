@@ -7,151 +7,176 @@ const roleplays = [
 		name: 'airkiss',
 		description: 'Mande um beijo no ar para alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=airkiss',
-		title: ':kiss: Beijo no ar! :kiss:'
+		title: ':kiss: Beijo no ar! :kiss:',
+		action: "mandou um beijo no ar para"
 	},
 	{
 		name: 'angrystare',
 		description: 'Dê um olhar de raiva para alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=angrystare',
-		title: ':angry: Olhar de raiva! :angry:'
+		title: ':angry: Olhar de raiva! :angry:',
+		action: "olhou com raiva para"
 	},
 	{
 		name: 'bite',
 		description: 'Morda alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=bite',
-		title: ':bite: Mordida! :bite:'
+		title: ':bite: Mordida! :bite:',
+		action: "mordeu"
 	},
 	{
 		name: 'blush',
 		description: 'Fique envergonhado(a) com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=blush',
-		title: ':blush: Envergonhado(a)! :blush:'
+		title: ':blush: Envergonhado(a)! :blush:',
+		action: "ficou envergonhado(a) com"
 	},
 	{
 		name: 'brofist',
 		description: 'Dê um soquinho de camaradagem!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=brofist',
-		title: ':punch: Soquinho! :punch:'
+		title: ':punch: Soquinho! :punch:',
+		action: "deu um soquinho camarada com"
 	},
 	{
 		name: 'cheers',
 		description: 'Brinde com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=cheers',
-		title: ':clinking_glasses: Saúde! :clinking_glasses:'
+		title: ':clinking_glasses: Saúde! :clinking_glasses:',
+		action: "brindou com"
 	},
 	{
 		name: 'clap',
 		description: 'Aplauda alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=clap',
-		title: ':clap: Aplausos! :clap:'
+		title: ':clap: Aplausos! :clap:',
+		action: "aplaudiu"
 	},
 	{
 		name: 'cry',
 		description: 'Chore com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=cry',
-		title: ':cry: Chorando! :cry:'
+		title: ':cry: Chorando! :cry:',
+		action: "está chorando com"
 	},
 	{
 		name: 'cuddle',
 		description: 'Faça carinho em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=cuddle',
-		title: ':hugging: Abraço aconchegante! :hugging:'
+		title: ':hugging: Abraço aconchegante! :hugging:',
+		action: "fez carinho em"
 	},
 	{
 		name: 'dance',
 		description: 'Dance com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=dance',
-		title: ':dancer: Dançando! :dancer:'
+		title: ':dancer: Dançando! :dancer:',
+		action: "dançou com"
 	},
 	{
 		name: 'hug',
 		description: 'Dê um abraço em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=hug',
-		title: ':hugs: Abraço! :hugs:'
+		title: ':hugs: Abraço! :hugs:',
+		action: "abraçou"
 	},
 	{
 		name: 'kiss',
 		description: 'Dê um beijo em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=kiss',
-		title: ':kiss: Beijo! :kiss:'
+		title: ':kiss: Beijo! :kiss:',
+		action: "beijou"
 	},
 	{
 		name: 'laugh',
 		description: 'Ria de alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=laugh',
-		title: ':laughing: Rindo! :laughing:'
+		title: ':laughing: Rindo! :laughing:',
+		action: "riu de"
 	},
 	{
 		name: 'love',
 		description: 'Mostre amor por alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=love',
-		title: ':heart: Amor! :heart:'
+		title: ':heart: Amor! :heart:',
+		action: "mostrou afeto por"
 	},
 	{
 		name: 'mad',
 		description: 'Fique bravo(a) com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=mad',
-		title: ':rage: Bravo(a)! :rage:'
+		title: ':rage: Bravo(a)! :rage:',
+		action: "ficou bravo com"
 	},
 	{
 		name: 'no',
 		description: 'Diga não para alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=no',
-		title: ':no_entry_sign: Não! :no_entry_sign:'
+		title: ':no_entry_sign: Não! :no_entry_sign:',
+		action: "disse não para"
 	},
 	{
 		name: 'nuzzle',
 		description: 'Acaricie alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=nuzzle',
-		title: ':relaxed: Carinho! :relaxed:'
+		title: ':relaxed: Carinho! :relaxed:',
+		action: "acariciou"
 	},
 	{
 		name: 'pat',
 		description: 'Faça cafuné em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=pat',
-		title: ':sparkling_heart: Owwwn cafunézinho :sparkling_heart:'
+		title: ':sparkling_heart: Owwwn cafunézinho :sparkling_heart:',
+		action: "fez cafuné em"
 	},
 	{
 		name: 'poke',
 		description: 'Cutuca alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=poke',
-		title: ':point_right: Cutucada! :point_right:'
+		title: ':point_right: Cutucada! :point_right:',
+		action: "cutucou"
 	},
 	{
 		name: 'punch',
 		description: 'Dê um soco em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=punch',
-		title: ':facepunch: Soco! :facepunch:'
+		title: ':facepunch: Soco! :facepunch:',
+		action: "socou"
 	},
 	{
 		name: 'sad',
 		description: 'Fique triste com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=sad',
-		title: ':crying_cat_face: Triste! :crying_cat_face:'
+		title: ':crying_cat_face: Triste! :crying_cat_face:',
+		action: "ficou triste com"
 	},
 	{
 		name: 'scared',
 		description: 'Fique assustado(a) com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=scared',
-		title: ':fearful: Assustado(a)! :fearful:'
+		title: ':fearful: Assustado(a)! :fearful:',
+		action: "se assustou com"
 	},
 	{
 		name: 'shout',
 		description: 'Grite com alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=shout',
-		title: ':shouting: Gritando! :shouting:'
+		title: ':shouting: Gritando! :shouting:',
+		action: "gritou com"
 	},
 	{
 		name: 'slap',
 		description: 'Dê um tapa em alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=slap',
-		title: ':raised_hand: Tapa! :raised_hand:'
+		title: ':raised_hand: Tapa! :raised_hand:',
+		action: "tapeou"
 	},
 	{
 		name: 'wink',
 		description: 'Pisque para alguém!',
 		apiUrl: 'https://api.otakugifs.xyz/gif?reaction=wink',
-		title: ':wink: Piscadinha! :wink:'
+		title: ':wink: Piscadinha! :wink:',
+		action: "piscou para"
 	}
 ];
 
@@ -212,7 +237,7 @@ module.exports = {
 				});
 
 			interaction.reply({
-				content: `<@${interaction.user.id}> ${roleplay.description.toLowerCase()} <@${user.user.id}>`,
+				content: `<@${interaction.user.id}> ${roleplay.action.toLowerCase()} <@${user.user.id}>`,
 				embeds: [embed],
 			});
 		} else {
