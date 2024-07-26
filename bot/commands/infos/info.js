@@ -17,58 +17,34 @@ module.exports = {
         .setName("user")
         .setDescription("Informações de um usuário")
         .addUserOption((option) =>
-          option
-            .setName("user")
-            .setDescription("menção ao usuário")
-            .setRequired(true)
+          option.setName("user").setDescription("menção ou id").setRequired(false)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("user_id")
-        .setDescription("Informações de um usuário")
+        .setName("server")
+        .setDescription("Informações de um servidor")
         .addStringOption((option) =>
-          option
-            .setName("user_id")
-            .setDescription("ID de um usuário")
-            .setRequired(true)
+          option.setName("server_id").setDescription("ID do servidor").setRequired(false)
         )
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("server").setDescription("Informações do um servidor")
     ),
   async execute(interaction) {
-    /*
-    verify
-    if (interaction.user.id != config.botConfig.devId)
-      return interaction.reply({
-        content: "Ei, bobinhx! Este comando é apenas para o desenvolvedor.",
-        ephemeral: true
-      });
-    verify
-    */
-
     const { client } = interaction;
     const { config } = client;
-
     const subcomando = interaction.options.getSubcommand();
+    const targetUser = interaction.options.getUser("user") || interaction.user;
+    const targetServerId = interaction.options.getString("server_id");
+    const guild = targetServerId ? await client.guilds.fetch(targetServerId) : interaction.guild;
 
-    const { guild, user } = interaction;
+    if (!guild) {
+      return interaction.reply({
+        content: "Servidor não encontrado.",
+        ephemeral: true,
+      });
+    }
 
-    const checkBots = () => {
-        let botCount = 0;
-        guild.members.cache.forEach((member) => {
-          if (member.user.bot) botCount++;
-        });
-        return botCount;
-      },
-      checkMembers = () => {
-        let memberCount = 0;
-        guild.members.cache.forEach((member) => {
-          if (!member.user.bot) memberCount++;
-        });
-        return memberCount;
-      };
+    const checkBots = () => guild.members.cache.filter(member => member.user.bot).size;
+    const checkMembers = () => guild.members.cache.filter(member => !member.user.bot).size;
 
     const embedGuild = new EmbedBuilder()
       .setColor(config.botConfig.themeColor)
@@ -80,7 +56,9 @@ module.exports = {
         `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=2048`
       )
       .setImage(
-        `https://cdn.discordapp.com/splashes/${guild.id}/${guild.splash}.png?size=2048`
+        guild.splash
+          ? `https://cdn.discordapp.com/splashes/${guild.id}/${guild.splash}.png?size=2048`
+          : null
       )
       .addFields(
         {
@@ -89,9 +67,7 @@ module.exports = {
         },
         {
           name: "Quantidade de membros:",
-          value: `:person_red_hair: ${checkMembers(
-            guild
-          )} - :robot: ${checkBots(guild)}`,
+          value: `:person_red_hair: ${checkMembers()} - :robot: ${checkBots()} - Total: ${guild.memberCount}`,
         },
         {
           name: "Quantidade de canais:",
@@ -100,22 +76,34 @@ module.exports = {
         {
           name: "Canais Importantes:",
           value: `${
-            guild.rulesChannelId !== null
-              ? "<#" + guild.rulesChannelId + ">"
-              : "Sem canal de regras"
+            guild.rulesChannelId ? "<#" + guild.rulesChannelId + ">" : "Sem canal de regras"
           } | ${
-            guild.publicUpdatesChannelId !== null
-              ? "<#" + guild.publicUpdatesChannelId + ">"
-              : "Sem canal de novidades"
+            guild.publicUpdatesChannelId ? "<#" + guild.publicUpdatesChannelId + ">" : "Sem canal de novidades"
           }`,
         },
         {
+          name: "Nível de Verificação:",
+          value: `${guild.verificationLevel}`,
+        },
+        {
+          name: "Região:",
+          value: `${guild.preferredLocale || "Não especificada"}`,
+        },
+        {
+          name: "Número de impulsos:",
+          value: `${guild.premiumSubscriptionCount}`,
+        },
+        {
+          name: "Recursos:",
+          value: guild.features.length > 0 ? guild.features.join(', ') : "Nenhum",
+        },
+        {
           name: "Criado em:",
-          value: `<t:${user.createdAt}:R>`,
+          value: `<t:${Math.floor(guild.createdTimestamp / 1000)}:R>`,
         },
         {
           name: "Entrei aqui em:",
-          value: `<t:${user.joinedTimestamp}:R>`,
+          value: `<t:${Math.floor(guild.joinedTimestamp / 1000)}:R>`,
         }
       );
 
@@ -128,27 +116,61 @@ module.exports = {
         )
     );
 
-    const embedUser = new EmbedBuilder()
-      .setColor(config.botConfig.themeColor)
-      .setAuthor({
-        name: `${user.username}#${user.discriminator} - (${user.id})`,
-        iconURL: config.imagesLink.infoEmbed,
-      })
-      .setThumbnail(
-        `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=2048`
-      )
-      .addFields(
+    const embedUser = async (user) => {
+      let memberData;
+      let userData = await client.users.fetch(user.id);
+
+      try {
+        memberData = await guild.members.fetch(user.id);
+      } catch (error) {
+        memberData = null;
+      }
+
+      const fields = [
         {
           name: "Criado em:",
-          value: `<t:${user.createdAt}:R>`,
+          value: `<t:${Math.floor(userData.createdAt / 1000)}:R>`,
         },
-        {
-          name: "Entrei aqui em:",
-          value: `<t:${user.joinedAt}:R>`,
-        }
-      );
+        memberData ? {
+          name: "Entrou no servidor em:",
+          value: `<t:${Math.floor(memberData.joinedTimestamp / 1000)}:R>`,
+        } : {
+          name: "Entrou no servidor em:",
+          value: "Usuário não é membro do servidor.",
+        },
+        userData.globalName ? {
+          name: "Nome Global:",
+          value: userData.globalName,
+        } : null,
+        memberData && memberData.nickname ? {
+          name: "Apelido:",
+          value: memberData.nickname || "Não definido",
+        } : null,
+        memberData && memberData.premiumSinceTimestamp ? {
+          name: "Booster desde:",
+          value: `<t:${Math.floor(memberData.premiumSinceTimestamp / 1000)}:R>`,
+        } : null,
+        userData.avatar ? {
+          name: "Avatar:",
+          value: `[Clique aqui](${userData.displayAvatarURL({ format: "png", size: 2048 })})`,
+        } : null,
+        memberData && memberData.roles.size > 0 ? {
+          name: "Cargos:",
+          value: memberData.roles.cache.map(role => `<@&${role.id}>`).join(', '),
+        } : null,
+      ].filter(field => field !== null);
 
-    const rowUser = new ActionRowBuilder().addComponents(
+      return new EmbedBuilder()
+        .setColor(config.botConfig.themeColor)
+        .setAuthor({
+          name: `${userData.username}#${userData.discriminator} - (${userData.id})`,
+          iconURL: config.imagesLink.infoEmbed,
+        })
+        .setThumbnail(userData.displayAvatarURL({ format: "png", size: 2048 }))
+        .addFields(fields);
+    };
+
+    const rowUser = (user) => new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setLabel("Baixar Avatar")
         .setStyle(ButtonStyle.Link)
@@ -157,22 +179,14 @@ module.exports = {
         )
     );
 
-    moment.locale(guild.preferredLocale);
-
     switch (subcomando) {
       case "server":
-        interaction.reply({ embeds: [embedGuild], components: [row] });
+        await interaction.reply({ embeds: [embedGuild], components: [row] });
         break;
 
       case "user":
-        interaction.reply({ embeds: [embedUser], components: [rowUser] });
-        break;
-
-      case "user_id":
-        interaction.reply({
-          content: "Oláa! Esse subcomando será disponibilizado em breve.",
-          ephemeral: true,
-        });
+        const userEmbed = await embedUser(targetUser);
+        await interaction.reply({ embeds: [userEmbed], components: [rowUser(targetUser)] });
         break;
     }
   },
