@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
+  isDev: true,
   data: new SlashCommandBuilder()
     .setName("newinvite")
     .setDescription("Gera um convite de um canal!")
