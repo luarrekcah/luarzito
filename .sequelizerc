@@ -1,0 +1,8 @@
+const { resolve } = require('path');
+
+module.exports = {
+    'config': resolve('shared', 'config', 'database.js'),
+    'migrations-path': resolve('shared', 'database', 'migrations'),
+    'seeders-path': resolve('shared', 'database', 'seeders'),
+    'models-path': resolve('shared', 'database', 'models'),
+};

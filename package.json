@@ -6,6 +6,10 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:migrate:undo:all": "npx sequelize-cli db:migrate:undo:all",
+    "db:seed": "npx sequelize db:seed:all",
+    "db:migrate:model": "npx sequelize-cli migration:generate --name create_example_table",
     "dg": "node bot/deploy/global.js",
     "dt": "node bot/deploy/tests.js",
     "dl": "node bot/deploy/delete.js"
@@ -20,7 +24,7 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "discord.js": "^14.15.3",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
@@ -39,6 +43,8 @@
     "passport": "^0.7.0",
     "passport-discord": "^0.1.4",
     "path": "^0.12.7",
+    "pg": "^8.13.1",
+    "sequelize": "^6.37.5",
     "winston": "^3.13.1",
     "xss-clean": "^0.1.4"
   },
