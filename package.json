@@ -18,7 +18,7 @@
     "@firebase/app": "^0.9.29",
     "@firebase/database": "^1.0.6",
     "axios": "^1.7.2",
-    "canvas": "^2.11.2",
+    "canvas": "^3.0.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
